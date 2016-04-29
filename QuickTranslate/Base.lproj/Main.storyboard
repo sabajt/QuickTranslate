@@ -25,10 +25,11 @@
             </objects>
             <point key="canvasLocation" x="1242" y="-36"/>
         </scene>
-        <!--View Controller-->
+        <!--Translate View Controller-->
         <scene sceneID="HGj-Is-dy5">
             <objects>
-                <viewController id="h0E-Tw-LIR" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WJO-ty-ETa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="h0E-Tw-LIR" customClass="TranslateViewController" customModule="QuickTranslate" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hVg-Ut-3qq"/>
                         <viewControllerLayoutGuide type="bottom" id="eUY-cR-dub"/>
@@ -54,12 +55,15 @@
                                             <constraint firstAttribute="height" constant="228" id="95F-GN-PGd"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="go"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="95F-GN-PGd"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <outlet property="delegate" destination="h0E-Tw-LIR" id="SJa-uT-EtS"/>
+                                        </connections>
                                     </textView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" delaysContentTouches="NO" editable="NO" text="Translation Field" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sAz-Pt-HbT">
                                         <rect key="frame" x="0.0" y="249" width="560" height="229"/>
@@ -100,7 +104,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="oF2-4b-qzB"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WJO-ty-ETa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1242" y="-697"/>
         </scene>
