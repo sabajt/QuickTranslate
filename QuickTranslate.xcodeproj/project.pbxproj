@@ -21,6 +21,11 @@
 		334737DC1CD5139400660CD5 /* RecentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334737DB1CD5139400660CD5 /* RecentViewController.swift */; };
 		33E3DD2C1CD526A500EAD816 /* RecentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E3DD2B1CD526A500EAD816 /* RecentCell.swift */; };
 		33E3DD2E1CD52A3D00EAD816 /* SelectLanguageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E3DD2D1CD52A3D00EAD816 /* SelectLanguageController.swift */; };
+		33E3DD331CD5322000EAD816 /* Language+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E3DD2F1CD5322000EAD816 /* Language+CoreDataProperties.swift */; };
+		33E3DD341CD5322000EAD816 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E3DD301CD5322000EAD816 /* Language.swift */; };
+		33E3DD351CD5322000EAD816 /* Phrase+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E3DD311CD5322000EAD816 /* Phrase+CoreDataProperties.swift */; };
+		33E3DD361CD5322000EAD816 /* Phrase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E3DD321CD5322000EAD816 /* Phrase.swift */; };
+		33E3DD381CD5430B00EAD816 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E3DD371CD5430B00EAD816 /* DataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +66,11 @@
 		334737DB1CD5139400660CD5 /* RecentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentViewController.swift; sourceTree = "<group>"; };
 		33E3DD2B1CD526A500EAD816 /* RecentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentCell.swift; sourceTree = "<group>"; };
 		33E3DD2D1CD52A3D00EAD816 /* SelectLanguageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectLanguageController.swift; sourceTree = "<group>"; };
+		33E3DD2F1CD5322000EAD816 /* Language+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Language+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		33E3DD301CD5322000EAD816 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
+		33E3DD311CD5322000EAD816 /* Phrase+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Phrase+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		33E3DD321CD5322000EAD816 /* Phrase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Phrase.swift; sourceTree = "<group>"; };
+		33E3DD371CD5430B00EAD816 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		77E666964C6A4082929DF4CA /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		A2E12A52F3EAC63D73E04D49 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -116,6 +126,10 @@
 		3329A0B81CD2E56C000BC49F /* QuickTranslate */ = {
 			isa = PBXGroup;
 			children = (
+				33E3DD2F1CD5322000EAD816 /* Language+CoreDataProperties.swift */,
+				33E3DD301CD5322000EAD816 /* Language.swift */,
+				33E3DD311CD5322000EAD816 /* Phrase+CoreDataProperties.swift */,
+				33E3DD321CD5322000EAD816 /* Phrase.swift */,
 				3329A0B91CD2E56C000BC49F /* AppDelegate.swift */,
 				3329A0BB1CD2E56C000BC49F /* ViewController.swift */,
 				3329A0BD1CD2E56C000BC49F /* Main.storyboard */,
@@ -128,6 +142,7 @@
 				334737DB1CD5139400660CD5 /* RecentViewController.swift */,
 				33E3DD2B1CD526A500EAD816 /* RecentCell.swift */,
 				33E3DD2D1CD52A3D00EAD816 /* SelectLanguageController.swift */,
+				33E3DD371CD5430B00EAD816 /* DataManager.swift */,
 			);
 			path = QuickTranslate;
 			sourceTree = "<group>";
@@ -349,13 +364,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33E3DD331CD5322000EAD816 /* Language+CoreDataProperties.swift in Sources */,
+				33E3DD341CD5322000EAD816 /* Language.swift in Sources */,
 				334737DA1CD433AF00660CD5 /* TranslateAPIClient.swift in Sources */,
+				33E3DD351CD5322000EAD816 /* Phrase+CoreDataProperties.swift in Sources */,
 				33E3DD2E1CD52A3D00EAD816 /* SelectLanguageController.swift in Sources */,
 				3329A0C21CD2E56C000BC49F /* QuickTranslate.xcdatamodeld in Sources */,
+				33E3DD361CD5322000EAD816 /* Phrase.swift in Sources */,
 				334737D81CD39C7400660CD5 /* TranslateViewController.swift in Sources */,
 				334737DC1CD5139400660CD5 /* RecentViewController.swift in Sources */,
 				3329A0BC1CD2E56C000BC49F /* ViewController.swift in Sources */,
 				33E3DD2C1CD526A500EAD816 /* RecentCell.swift in Sources */,
+				33E3DD381CD5430B00EAD816 /* DataManager.swift in Sources */,
 				3329A0BA1CD2E56C000BC49F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
