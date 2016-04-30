@@ -5,9 +5,6 @@
       location = "container:QuickTranslate.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:QuickTranslate.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

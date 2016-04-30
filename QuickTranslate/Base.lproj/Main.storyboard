@@ -159,7 +159,13 @@
                             <constraint firstItem="BRn-YB-JRV" firstAttribute="top" secondItem="hVg-Ut-3qq" secondAttribute="bottom" id="ipN-fa-ikG"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="oF2-4b-qzB"/>
+                    <navigationItem key="navigationItem" id="oF2-4b-qzB">
+                        <barButtonItem key="rightBarButtonItem" title="Language" id="IVz-NM-H2P">
+                            <connections>
+                                <segue destination="TDQ-nD-ONP" kind="show" id="INd-wh-9Xd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="dismissKeyboardButton" destination="eec-od-oLI" id="qk7-kS-037"/>
                         <outlet property="entryTextView" destination="imU-yy-ci6" id="aFu-g6-Dlm"/>
@@ -169,6 +175,43 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WJO-ty-ETa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1242" y="-697"/>
+        </scene>
+        <!--Select Language Controller-->
+        <scene sceneID="32A-aN-5an">
+            <objects>
+                <tableViewController id="TDQ-nD-ONP" customClass="SelectLanguageController" customModule="QuickTranslate" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="26i-jC-RPJ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LanguageCell" textLabel="vJv-TB-uDE" style="IBUITableViewCellStyleDefault" id="U7J-TV-k1f">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="U7J-TV-k1f" id="BGM-Ba-dff">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Language Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vJv-TB-uDE">
+                                            <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="TDQ-nD-ONP" id="DQE-7p-YNn"/>
+                            <outlet property="delegate" destination="TDQ-nD-ONP" id="MaY-cs-A1z"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="prp-tv-psh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1966" y="-697"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="qTc-Cg-u5u">

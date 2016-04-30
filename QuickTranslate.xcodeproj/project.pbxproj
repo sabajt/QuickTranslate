@@ -20,6 +20,7 @@
 		334737DA1CD433AF00660CD5 /* TranslateAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334737D91CD433AF00660CD5 /* TranslateAPIClient.swift */; };
 		334737DC1CD5139400660CD5 /* RecentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334737DB1CD5139400660CD5 /* RecentViewController.swift */; };
 		33E3DD2C1CD526A500EAD816 /* RecentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E3DD2B1CD526A500EAD816 /* RecentCell.swift */; };
+		33E3DD2E1CD52A3D00EAD816 /* SelectLanguageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E3DD2D1CD52A3D00EAD816 /* SelectLanguageController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		334737D91CD433AF00660CD5 /* TranslateAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslateAPIClient.swift; sourceTree = "<group>"; };
 		334737DB1CD5139400660CD5 /* RecentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentViewController.swift; sourceTree = "<group>"; };
 		33E3DD2B1CD526A500EAD816 /* RecentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentCell.swift; sourceTree = "<group>"; };
+		33E3DD2D1CD52A3D00EAD816 /* SelectLanguageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectLanguageController.swift; sourceTree = "<group>"; };
 		77E666964C6A4082929DF4CA /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		A2E12A52F3EAC63D73E04D49 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -125,6 +127,7 @@
 				334737D91CD433AF00660CD5 /* TranslateAPIClient.swift */,
 				334737DB1CD5139400660CD5 /* RecentViewController.swift */,
 				33E3DD2B1CD526A500EAD816 /* RecentCell.swift */,
+				33E3DD2D1CD52A3D00EAD816 /* SelectLanguageController.swift */,
 			);
 			path = QuickTranslate;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				334737DA1CD433AF00660CD5 /* TranslateAPIClient.swift in Sources */,
+				33E3DD2E1CD52A3D00EAD816 /* SelectLanguageController.swift in Sources */,
 				3329A0C21CD2E56C000BC49F /* QuickTranslate.xcdatamodeld in Sources */,
 				334737D81CD39C7400660CD5 /* TranslateViewController.swift in Sources */,
 				334737DC1CD5139400660CD5 /* RecentViewController.swift in Sources */,
