@@ -15,17 +15,29 @@ class TranslationAPIClient {
     private let baseURLString = "https://www.googleapis.com/language/translate/v2"
     private let sourceLanguageCode = "en"
     
-    func getSupportedLanguages() {
+    func getSupportedLanguages(completion: (errorMessage: String?, json: [[String: String]]?) -> Void) {
         let urlString = baseURLString + "/languages"
         let params = ["key": googleAPIKey, "target": sourceLanguageCode]
         
-        Alamofire.request(.GET, urlString, parameters: params).responseJSON { response in
+        Alamofire.request(.GET, urlString, parameters: params).validate().responseJSON { response in
             if response.result.isFailure {
-                let errorMessage = self.errorMessageFromResponse(response)
-                print(errorMessage)
-            } else if let json = response.result.value {
-                print(json)
+                let message = self.errorMessageFromResponse(response)
+                completion(errorMessage: message, json: nil)
+                return
             }
+            guard let value = response.result.value else {
+                completion(errorMessage: "Failure: No response value", json: nil)
+                return
+            }
+            guard let data = value["data"] as? [String: AnyObject] else {
+                completion(errorMessage: "Failure: No 'data' field", json: nil)
+                return
+            }
+            guard let languages = data["languages"] as? [[String: String]] else {
+                completion(errorMessage: "Failure: No 'languages' field", json: nil)
+                return
+            }
+            completion(errorMessage: nil, json: languages)
         }
     }
     
@@ -41,7 +53,7 @@ class TranslationAPIClient {
             }
         }
     }
-    
+
     func errorMessageFromResponse(response: Response<AnyObject, NSError>) -> String {
         var errorMessage = "Failure: "
         if let urlResponse = response.response {
