@@ -21,6 +21,7 @@ class TranslateViewController: UIViewController {
         super.viewDidLoad()
         
         dismissKeyboardButton.hidden = true
+        TranslationAPIClient.sharedInstance.getSupportedLanguages()
     }
     @IBAction func dismissKeyboardButtonPressed(sender: UIButton) {
         hideKeyboard()
@@ -53,6 +54,9 @@ extension TranslateViewController: UITextViewDelegate {
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
+            if let query = textView.text where query.characters.count > 0 {
+                TranslationAPIClient.sharedInstance.getTranslation(query, languageCode: "es")
+            }
             hideKeyboard()
             return false
         }
