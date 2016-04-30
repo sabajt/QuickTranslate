@@ -9,19 +9,51 @@
 import UIKit
 
 class TranslateViewController: UIViewController {
+    
+    static let keyboardTransitionDuration: NSTimeInterval = 0.3
+    static let dismissKeyboardButtonDefaultAlpha: CGFloat = 0.2
 
+    @IBOutlet weak var entryTextView: UITextView!
+    @IBOutlet weak var resultTextView: UITextView!
+    @IBOutlet weak var dismissKeyboardButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        dismissKeyboardButton.hidden = true
+    }
+    @IBAction func dismissKeyboardButtonPressed(sender: UIButton) {
+        hideKeyboard()
+    }
+    
+    func showKeyboard() {
+        dismissKeyboardButton.hidden = false
+        UIView.animateWithDuration(TranslateViewController.keyboardTransitionDuration) {
+            self.dismissKeyboardButton.alpha = TranslateViewController.dismissKeyboardButtonDefaultAlpha
+        }
+    }
+    
+    func hideKeyboard() {
+        entryTextView.resignFirstResponder()
+        
+        UIView.animateWithDuration(TranslateViewController.keyboardTransitionDuration, animations: {
+            self.dismissKeyboardButton.alpha = 0
+        }) { (_) in
+            self.dismissKeyboardButton.hidden = true
+        }
     }
 }
 
 extension TranslateViewController: UITextViewDelegate {
     
+    func textViewShouldBeginEditing(textView: UITextView) -> Bool {
+        showKeyboard()
+        return true
+    }
+    
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
-            textView.resignFirstResponder()
+            hideKeyboard()
             return false
         }
         return true

@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -39,17 +38,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BRn-YB-JRV">
-                                <rect key="frame" x="20" y="64" width="560" height="487"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mi6-JC-5bC">
-                                        <rect key="frame" x="0.0" y="239" width="560" height="10"/>
+                                        <rect key="frame" x="0.0" y="239" width="600" height="10"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="10" id="pGZ-Hq-SN0"/>
                                         </constraints>
                                     </view>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Entry Field" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="imU-yy-ci6">
-                                        <rect key="frame" x="0.0" y="10" width="560" height="229"/>
+                                        <rect key="frame" x="0.0" y="10" width="600" height="229"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="228" id="95F-GN-PGd"/>
@@ -66,11 +65,18 @@
                                         </connections>
                                     </textView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" delaysContentTouches="NO" editable="NO" text="Translation Field" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sAz-Pt-HbT">
-                                        <rect key="frame" x="0.0" y="249" width="560" height="229"/>
+                                        <rect key="frame" x="0.0" y="249" width="600" height="229"/>
                                         <color key="backgroundColor" red="0.96906705841579655" green="0.9868087369109948" blue="0.96580786207568292" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
+                                    <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eec-od-oLI">
+                                        <rect key="frame" x="0.0" y="239" width="600" height="248"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="dismissKeyboardButtonPressed:" destination="h0E-Tw-LIR" eventType="touchUpInside" id="n0R-Hn-cy3"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -82,8 +88,12 @@
                                     <constraint firstItem="sAz-Pt-HbT" firstAttribute="top" secondItem="mi6-JC-5bC" secondAttribute="bottom" id="FKv-VO-qqB"/>
                                     <constraint firstItem="sAz-Pt-HbT" firstAttribute="centerX" secondItem="BRn-YB-JRV" secondAttribute="centerX" id="RWb-um-gVC"/>
                                     <constraint firstItem="mi6-JC-5bC" firstAttribute="centerY" secondItem="BRn-YB-JRV" secondAttribute="centerY" id="dhK-sp-u2n"/>
+                                    <constraint firstAttribute="trailing" secondItem="eec-od-oLI" secondAttribute="trailing" id="hP7-Fh-iMH"/>
                                     <constraint firstAttribute="trailing" secondItem="imU-yy-ci6" secondAttribute="trailing" id="jNg-3v-lfC"/>
                                     <constraint firstAttribute="trailing" secondItem="mi6-JC-5bC" secondAttribute="trailing" id="kx9-86-S8b"/>
+                                    <constraint firstItem="eec-od-oLI" firstAttribute="top" secondItem="imU-yy-ci6" secondAttribute="bottom" id="mwX-bB-1EF"/>
+                                    <constraint firstItem="eec-od-oLI" firstAttribute="leading" secondItem="BRn-YB-JRV" secondAttribute="leading" id="rHn-OT-1WX"/>
+                                    <constraint firstAttribute="bottom" secondItem="eec-od-oLI" secondAttribute="bottom" id="uGw-J2-gYE"/>
                                     <constraint firstItem="imU-yy-ci6" firstAttribute="bottom" secondItem="mi6-JC-5bC" secondAttribute="bottom" id="uNG-Kf-cvX"/>
                                     <constraint firstItem="mi6-JC-5bC" firstAttribute="leading" secondItem="BRn-YB-JRV" secondAttribute="leading" id="xRY-OU-53S"/>
                                 </constraints>
@@ -96,13 +106,18 @@
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="leadingMargin" secondItem="BRn-YB-JRV" secondAttribute="leading" id="a2q-iR-lq7"/>
+                            <constraint firstAttribute="leading" secondItem="BRn-YB-JRV" secondAttribute="leading" id="a2q-iR-lq7"/>
                             <constraint firstItem="eUY-cR-dub" firstAttribute="top" secondItem="BRn-YB-JRV" secondAttribute="bottom" id="guF-Ft-GNv"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="BRn-YB-JRV" secondAttribute="trailing" id="i2I-US-08F"/>
+                            <constraint firstAttribute="trailing" secondItem="BRn-YB-JRV" secondAttribute="trailing" id="i2I-US-08F"/>
                             <constraint firstItem="BRn-YB-JRV" firstAttribute="top" secondItem="hVg-Ut-3qq" secondAttribute="bottom" id="ipN-fa-ikG"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="oF2-4b-qzB"/>
+                    <connections>
+                        <outlet property="dismissKeyboardButton" destination="eec-od-oLI" id="qk7-kS-037"/>
+                        <outlet property="entryTextView" destination="imU-yy-ci6" id="aFu-g6-Dlm"/>
+                        <outlet property="resultTextView" destination="sAz-Pt-HbT" id="Xqg-TE-d2k"/>
+                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="1242" y="-697"/>
