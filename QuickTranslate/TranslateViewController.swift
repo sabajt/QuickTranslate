@@ -21,10 +21,6 @@ class TranslateViewController: UIViewController {
         super.viewDidLoad()
         
         dismissKeyboardButton.hidden = true
-        TranslationAPIClient.sharedInstance.getSupportedLanguages { (errorMessage, json) in
-            print("errorMessage: \(errorMessage)")
-            print("json: \(json)")
-        }
     }
     
     @IBAction func dismissKeyboardButtonPressed(sender: UIButton) {

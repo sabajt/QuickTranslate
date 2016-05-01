@@ -32,18 +32,24 @@ class Language: NSManagedObject {
         
         return language
     }
+    
+    class func orderByAlphaFetchRequest() -> NSFetchRequest {
+        let fetchRequest = NSFetchRequest(entityName: "Language")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        return fetchRequest
+    }
 
-    class func fetchLanguages() -> [Language] {
+    class func fetchLanguagesAscending() -> [Language] {
         var results: [Language] = []
         
         let moc = DataManager.sharedInstance.managedObjectContext
         let fetchRequest = NSFetchRequest(entityName: "Language")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         
         do {
             results = try moc.executeFetchRequest(fetchRequest) as! [Language]
-            print("results: \(results)")
         } catch let error as NSError {
-            print("Could not fetch \(error), \(error.userInfo)")
+            print("Failed to fetch languages: \(error.userInfo)")
         }
         
         return results
