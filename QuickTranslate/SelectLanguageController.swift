@@ -33,19 +33,7 @@ class SelectLanguageController: UITableViewController {
             if let message = errorMessage {
                 print(message)
             } else if let languagesJson = json {
-                
-                let privateMoc = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
-                privateMoc.parentContext = DataManager.sharedInstance.managedObjectContext
-                privateMoc.performBlock {
-                    for dictionary in languagesJson {
-                        Language.createLanguage(dictionary)
-                    }
-                    do {
-                        try privateMoc.save()
-                    } catch {
-                        fatalError("Failure to save context: \(error)")
-                    }
-                }
+                Language.syncLanguagesInBackground(languagesJson)
             }
         }
     }
