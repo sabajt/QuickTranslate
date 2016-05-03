@@ -12,7 +12,6 @@ import CoreData
 class Language: NSManagedObject {
     
     class func createLanguage(json: [String: String], moc: NSManagedObjectContext) -> Language? {
-//        let moc = DataManager.sharedInstance.managedObjectContext
         
         guard let entity = NSEntityDescription.entityForName("Language", inManagedObjectContext: moc) else {
             print("Failed to create Language object: couldn't find entity 'Language'")
