@@ -60,4 +60,17 @@ class Phrase: NSManagedObject {
             }
         }
     }
+    
+    class func fetchPhrasesByMostRecent(moc: NSManagedObjectContext) -> [Phrase] {
+        let fetchRequest = NSFetchRequest(entityName: "Phrase")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateCreated", ascending: true)]
+        
+        var results: [Phrase] = []
+        do {
+            results = try moc.executeFetchRequest(fetchRequest) as! [Phrase]
+        } catch let error as NSError {
+            print("Failed to fetch phrases: \(error.userInfo)")
+        }
+        return results
+    }
 }
