@@ -46,11 +46,33 @@ class SelectLanguageController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("LanguageCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("SelectLanguageCell", forIndexPath: indexPath) as! SelectLanguageCell
         if let language = fetchedResultsController.objectAtIndexPath(indexPath) as? Language {
-            cell.textLabel?.text = language.name
+            cell.configureWithLanguage(language)
         }
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        guard let language = fetchedResultsController.objectAtIndexPath(indexPath) as? Language else {
+            return
+        }
+        if let languageCode = language.languageCode {
+            let oldLanguageCode = DataManager.sharedInstance.selectedLanguageCode
+            if oldLanguageCode != languageCode {
+                // Update the stored preference
+                DataManager.sharedInstance.selectedLanguageCode = languageCode
+                
+                // Update changed cells
+                guard let oldLanguage = Language.fetchLanguage(DataManager.sharedInstance.managedObjectContext, code: oldLanguageCode) else {
+                    return
+                }
+                guard let oldIndexPath = fetchedResultsController.indexPathForObject(oldLanguage) else {
+                    return
+                }
+                tableView.reloadRowsAtIndexPaths([oldIndexPath, indexPath], withRowAnimation: .Automatic)
+            }
+        }
     }
 }
 
@@ -81,8 +103,8 @@ extension SelectLanguageController: NSFetchedResultsControllerDelegate {
             tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
         case .Update:
             if let language = anObject as? Language {
-                let cell = self.tableView.cellForRowAtIndexPath(indexPath!)!
-                cell.textLabel?.text = language.name
+                let cell = self.tableView.cellForRowAtIndexPath(indexPath!)! as! SelectLanguageCell
+                cell.configureWithLanguage(language)
             }
         case .Move:
             tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)

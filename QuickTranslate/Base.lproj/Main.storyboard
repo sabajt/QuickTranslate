@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="l1u-4f-3nu">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -25,7 +26,7 @@
                                         <rect key="frame" x="0.0" y="92" width="600" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gQD-Ef-4bv" id="frd-4z-sAl">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Source" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cFf-1z-YmP">
@@ -185,22 +186,58 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LanguageCell" textLabel="vJv-TB-uDE" style="IBUITableViewCellStyleDefault" id="U7J-TV-k1f">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SelectLanguageCell" id="U7J-TV-k1f" customClass="SelectLanguageCell" customModule="QuickTranslate" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="U7J-TV-k1f" id="BGM-Ba-dff">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Language Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vJv-TB-uDE">
-                                            <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L0M-W8-kYT">
+                                            <rect key="frame" x="8" y="11" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkIcon" translatesAutoresizingMaskIntoConstraints="NO" id="idm-gq-80N">
+                                            <rect key="frame" x="548" y="8" width="24" height="28"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="idm-gq-80N" secondAttribute="height" multiplier="1:1" id="1GU-uw-UX8"/>
+                                                <constraint firstAttribute="width" constant="76" id="LeT-n6-GQT"/>
+                                                <constraint firstAttribute="height" constant="30" id="NLS-5q-Vd0"/>
+                                                <constraint firstAttribute="width" constant="24" id="evK-wq-DGR"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="1GU-uw-UX8"/>
+                                                    <exclude reference="LeT-n6-GQT"/>
+                                                    <exclude reference="NLS-5q-Vd0"/>
+                                                </mask>
+                                            </variation>
+                                        </imageView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="L0M-W8-kYT" firstAttribute="top" secondItem="BGM-Ba-dff" secondAttribute="topMargin" constant="3" id="3v5-bV-fQi"/>
+                                        <constraint firstItem="idm-gq-80N" firstAttribute="centerY" secondItem="BGM-Ba-dff" secondAttribute="centerY" id="G40-id-Q6b"/>
+                                        <constraint firstItem="idm-gq-80N" firstAttribute="top" secondItem="BGM-Ba-dff" secondAttribute="topMargin" id="LSd-qh-KRC"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="idm-gq-80N" secondAttribute="trailing" constant="20" id="XZZ-Wu-bdi"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="L0M-W8-kYT" secondAttribute="leading" id="YTX-Df-TZW"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="idm-gq-80N" secondAttribute="bottom" id="dVj-1G-4mE"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="L0M-W8-kYT" secondAttribute="bottom" constant="4" id="kAi-c0-vyJ"/>
+                                        <constraint firstItem="L0M-W8-kYT" firstAttribute="centerY" secondItem="BGM-Ba-dff" secondAttribute="centerY" id="tpa-qm-Wdi"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="3v5-bV-fQi"/>
+                                            <exclude reference="kAi-c0-vyJ"/>
+                                            <exclude reference="G40-id-Q6b"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="checkIcon" destination="idm-gq-80N" id="1dt-MM-QPm"/>
+                                    <outlet property="languageLabel" destination="L0M-W8-kYT" id="pRh-zb-PTy"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -270,4 +307,7 @@
             <point key="canvasLocation" x="430" y="-36"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="checkIcon" width="30" height="23"/>
+    </resources>
 </document>

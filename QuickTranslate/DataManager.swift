@@ -11,6 +11,34 @@ import CoreData
 class DataManager {
     static let sharedInstance = DataManager()
     
+    // MARK: User Defaults
+
+    // Limit access of user defaults to a few cases:
+    // 1) First launch of an app session
+    // 2) First time opening the app ever
+    // 3) Setting a new value
+    private var _selectedLanguageCode: String?
+    var selectedLanguageCode: String {
+        get {
+            if let code = _selectedLanguageCode {
+                return code
+            } else if let code = NSUserDefaults.standardUserDefaults().stringForKey("selectedLanguageCode") { // 1
+                _selectedLanguageCode = code
+                return code
+            } else {
+                _selectedLanguageCode = "es"
+                NSUserDefaults.standardUserDefaults().setValue(_selectedLanguageCode, forKey: "selectedLanguageCode") // 2
+                return _selectedLanguageCode!
+            }
+        }
+        set {
+            _selectedLanguageCode = newValue
+            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "selectedLanguageCode") // 3
+        }
+    }
+    
+    // MARK: Core Data
+    
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "com.johnsaba.QuickTranslate" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)

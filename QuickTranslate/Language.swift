@@ -27,8 +27,6 @@ class Language: NSManagedObject {
         language.languageCode = languageCode
         language.name = name
         
-        print("succesfully created language: \(language)")
-        
         return language
     }
     
@@ -46,6 +44,28 @@ class Language: NSManagedObject {
             print("Failed to fetch languages: \(error.userInfo)")
         }
         return results
+    }
+    
+    class func fetchLanguage(moc: NSManagedObjectContext, code: String) -> Language? {
+        let fetchRequest = NSFetchRequest(entityName: "Language")
+        fetchRequest.predicate = NSPredicate(format: "languageCode = %@", code)
+        
+        var results: [Language] = []
+        do {
+            results = try moc.executeFetchRequest(fetchRequest) as! [Language]
+        } catch let error as NSError {
+            print("Failed to fetch languages: \(error.userInfo)")
+        }
+        
+        if results.count > 1 {
+            print("Warning: found more than one language with language code: \(code)")
+        }
+        
+        guard let language = results.first else {
+            return nil
+        }
+        
+        return language
     }
     
     // TODO: Handle deleting stale languages
