@@ -10,6 +10,9 @@ import CoreData
 
 class DataManager {
     static let sharedInstance = DataManager()
+    static let selectedLanguageCodeChangedNotification = "selectedLanguageCodeChangedNotification"
+    static let defaultLanguageCode = "es"
+    static let defautlLanguageName = "Spanish"
     
     // MARK: User Defaults
 
@@ -34,6 +37,7 @@ class DataManager {
         set {
             _selectedLanguageCode = newValue
             NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "selectedLanguageCode") // 3
+            NSNotificationCenter.defaultCenter().postNotificationName(DataManager.selectedLanguageCodeChangedNotification, object: nil)
         }
     }
     

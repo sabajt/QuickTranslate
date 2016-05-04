@@ -21,6 +21,9 @@ class TranslateViewController: UIViewController {
         super.viewDidLoad()
         
         dismissKeyboardButton.hidden = true
+        
+        updateSelectedLanguageCode()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TranslateViewController.updateSelectedLanguageCode), name: DataManager.selectedLanguageCodeChangedNotification, object: nil)
     }
     
     @IBAction func dismissKeyboardButtonPressed(sender: UIButton) {
@@ -43,6 +46,18 @@ class TranslateViewController: UIViewController {
             self.dismissKeyboardButton.hidden = true
         }
     }
+    
+    func updateSelectedLanguageCode() {
+        if let barButtonItem = navigationItem.rightBarButtonItem {
+            if let language = Language.fetchLanguage(DataManager.sharedInstance.managedObjectContext, code: DataManager.sharedInstance.selectedLanguageCode) {
+                barButtonItem.title = language.name
+            } else {
+                // When first opening the app and before viewing the select languages screen,
+                // we haven't made a request to Google API for available languages
+                barButtonItem.title = DataManager.defautlLanguageName
+            }
+        }
+    }
 }
 
 extension TranslateViewController: UITextViewDelegate {
@@ -55,7 +70,7 @@ extension TranslateViewController: UITextViewDelegate {
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             if let query = textView.text where query.characters.count > 0 {
-                TranslationAPIClient.sharedInstance.getTranslation(query, languageCode: "es")
+                TranslationAPIClient.sharedInstance.getTranslation(query, languageCode: DataManager.sharedInstance.selectedLanguageCode)
             }
             hideKeyboard()
             return false
