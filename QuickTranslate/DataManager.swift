@@ -29,7 +29,7 @@ class DataManager {
                 _selectedLanguageCode = code
                 return code
             } else {
-                _selectedLanguageCode = "es"
+                _selectedLanguageCode = DataManager.defaultLanguageCode
                 NSUserDefaults.standardUserDefaults().setValue(_selectedLanguageCode, forKey: "selectedLanguageCode") // 2
                 return _selectedLanguageCode!
             }
