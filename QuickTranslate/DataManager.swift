@@ -9,7 +9,13 @@
 import CoreData
 
 class DataManager {
-    static let sharedInstance = DataManager()
+    static let sharedInstance: DataManager = {
+        let instance = DataManager()
+        NSNotificationCenter.defaultCenter().addObserver(instance, selector: #selector(handleMOCObjectsDidChange), name: NSManagedObjectContextObjectsDidChangeNotification, object: nil)
+        
+        return instance
+    }()
+    
     static let selectedLanguageCodeChangedNotification = "selectedLanguageCodeChangedNotification"
     static let defaultLanguageCode = "es"
     static let defautlLanguageName = "Spanish"
@@ -102,5 +108,15 @@ class DataManager {
                 abort()
             }
         }
+    }
+    
+    // MARK: - Core Data Context Notifications
+    
+    @objc func handleMOCObjectsDidChange(notification: NSNotification) {
+        saveContext()
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }

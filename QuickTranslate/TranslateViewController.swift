@@ -49,7 +49,7 @@ class TranslateViewController: UIViewController {
     
     func updateSelectedLanguageCode() {
         if let barButtonItem = navigationItem.rightBarButtonItem {
-            if let language = Language.fetchLanguage(DataManager.sharedInstance.managedObjectContext, code: DataManager.sharedInstance.selectedLanguageCode) {
+            if let language = Language.fetchSelectedLanguage(DataManager.sharedInstance.managedObjectContext) {
                 barButtonItem.title = language.name
             } else {
                 // When first opening the app and before viewing the select languages screen,

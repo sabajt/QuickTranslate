@@ -36,6 +36,19 @@ class SelectLanguageController: UITableViewController {
                 Language.syncLanguagesInBackground(languagesJson)
             }
         }
+        
+        if let indexPath = indexPathOfSelectedLanguage() {
+            tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: false)
+        }
+    }
+    
+    func indexPathOfSelectedLanguage() -> NSIndexPath? {
+        if let language = Language.fetchSelectedLanguage(DataManager.sharedInstance.managedObjectContext) {
+            if let indexPath = fetchedResultsController.indexPathForObject(language) {
+                return indexPath
+            }
+        }
+        return nil
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -114,5 +127,9 @@ extension SelectLanguageController: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         tableView.endUpdates()
+        
+        if let indexPath = indexPathOfSelectedLanguage() {
+            tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+        }
     }
 }

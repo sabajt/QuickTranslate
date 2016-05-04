@@ -68,6 +68,10 @@ class Language: NSManagedObject {
         return language
     }
     
+    class func fetchSelectedLanguage(moc: NSManagedObjectContext) -> Language? {
+        return Language.fetchLanguage(moc, code: DataManager.sharedInstance.selectedLanguageCode)
+    }
+    
     // TODO: Handle deleting stale languages
     class func syncLanguagesInBackground(json: [[String: String]]) {
         let privateMoc = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
