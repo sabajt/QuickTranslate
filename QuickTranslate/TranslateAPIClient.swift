@@ -41,16 +41,36 @@ class TranslationAPIClient {
         }
     }
     
-    func getTranslation(text: String, languageCode: String) {
+    func getTranslation(text: String, languageCode: String, completion: (errorMessage: String?, translatedText: String?) -> Void) {
         let params = ["key": googleAPIKey, "source": sourceLanguageCode, "target": languageCode, "q" : text]
         
-        Alamofire.request(.GET, baseURLString, parameters: params).responseJSON { response in
+        Alamofire.request(.GET, baseURLString, parameters: params).validate().responseJSON { response in
             if response.result.isFailure {
-                let errorMessage = self.errorMessageFromResponse(response)
-                print(errorMessage)
-            } else if let json = response.result.value {
-                print(json)
+                let message = self.errorMessageFromResponse(response)
+                completion(errorMessage: message, translatedText: nil)
+                return
             }
+            guard let value = response.result.value else {
+                completion(errorMessage: "Failure: No response value", translatedText: nil)
+                return
+            }
+            guard let data = value["data"] as? [String: AnyObject] else {
+                completion(errorMessage: "Failure: No data field", translatedText: nil)
+                return
+            }
+            guard let translations = data["translations"] as? [[String: String]] else {
+                completion(errorMessage: "Failure: No translations field", translatedText: nil)
+                return
+            }
+            guard let firstTranslation = translations.first else {
+                completion(errorMessage: "Failure: No translation results", translatedText: nil)
+                return
+            }
+            guard let translatedText = firstTranslation["translatedText"] as String! else {
+                completion(errorMessage: "Failure: No translatedText field", translatedText: nil)
+                return
+            }
+            completion(errorMessage: nil, translatedText: translatedText)
         }
     }
 
