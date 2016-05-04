@@ -112,7 +112,7 @@
                                             <outlet property="delegate" destination="h0E-Tw-LIR" id="SJa-uT-EtS"/>
                                         </connections>
                                     </textView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" delaysContentTouches="NO" editable="NO" text="Translation Field" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sAz-Pt-HbT">
+                                    <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" delaysContentTouches="NO" text="Translation Field" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="sAz-Pt-HbT">
                                         <rect key="frame" x="0.0" y="249" width="600" height="229"/>
                                         <color key="backgroundColor" red="0.96906705841579655" green="0.9868087369109948" blue="0.96580786207568292" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
