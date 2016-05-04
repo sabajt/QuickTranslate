@@ -70,11 +70,14 @@ extension TranslateViewController: UITextViewDelegate {
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             if let query = textView.text where query.characters.count > 0 {
-                TranslationAPIClient.sharedInstance.getTranslation(query, languageCode: DataManager.sharedInstance.selectedLanguageCode) { (errorMessage, translatedText) in
+                
+                let languageCode = DataManager.sharedInstance.selectedLanguageCode
+                TranslationAPIClient.sharedInstance.getTranslation(query, languageCode: languageCode) { (errorMessage, translatedText) in
                     if errorMessage != nil {
                         print("error: \(errorMessage)")
-                    } else {
+                    } else if let result = translatedText{
                         self.resultTextView.text = translatedText
+                        Phrase.createOrUpdatePhraseInBackground(languageCode, sourceText: query, translatedText: result, dateCreated: NSDate())
                     }
                 }
             }
