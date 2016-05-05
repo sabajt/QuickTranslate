@@ -51,6 +51,8 @@ class SelectLanguageController: UITableViewController {
         return nil
     }
     
+    // MARK: - UITableViewDataSource
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let sections = fetchedResultsController.sections else {
             return 0
@@ -66,6 +68,8 @@ class SelectLanguageController: UITableViewController {
         return cell
     }
     
+    // MARK: - UITableViewDataDelegate
+
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         guard let language = fetchedResultsController.objectAtIndexPath(indexPath) as? Language else {
             return

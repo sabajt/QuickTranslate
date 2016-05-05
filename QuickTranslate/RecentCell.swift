@@ -10,4 +10,14 @@ import UIKit
 
 class RecentCell: UITableViewCell {
 
+    @IBOutlet weak var sourceLabel: UILabel!
+    @IBOutlet weak var translatedLabel: UILabel!
+    
+    func configureWithPhrase(phrase: Phrase) {
+        if let sourceText = phrase.sourceText, translatedText = phrase.translatedText {
+            sourceLabel.text = sourceText
+            translatedLabel.text = translatedText
+        }
+    }
+    
 }

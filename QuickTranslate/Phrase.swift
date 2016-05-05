@@ -61,6 +61,12 @@ class Phrase: NSManagedObject {
         }
     }
     
+    class func mostRecentFetchRequest() -> NSFetchRequest {
+        let fetchRequest = NSFetchRequest(entityName: "Phrase")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateCreated", ascending: true)]
+        return fetchRequest
+    }
+    
     class func fetchPhrasesByMostRecent(moc: NSManagedObjectContext) -> [Phrase] {
         let fetchRequest = NSFetchRequest(entityName: "Phrase")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateCreated", ascending: true)]
