@@ -14,7 +14,7 @@
 		3329A0C21CD2E56C000BC49F /* QuickTranslate.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3329A0C01CD2E56C000BC49F /* QuickTranslate.xcdatamodeld */; };
 		3329A0C41CD2E56C000BC49F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3329A0C31CD2E56C000BC49F /* Assets.xcassets */; };
 		3329A0C71CD2E56C000BC49F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3329A0C51CD2E56C000BC49F /* LaunchScreen.storyboard */; };
-		3329A0D21CD2E56C000BC49F /* QuickTranslateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3329A0D11CD2E56C000BC49F /* QuickTranslateTests.swift */; };
+		3329A0D21CD2E56C000BC49F /* QuickTranslateModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3329A0D11CD2E56C000BC49F /* QuickTranslateModelTests.swift */; };
 		3329A0DD1CD2E56C000BC49F /* QuickTranslateUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3329A0DC1CD2E56C000BC49F /* QuickTranslateUITests.swift */; };
 		334737D81CD39C7400660CD5 /* TranslateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334737D71CD39C7400660CD5 /* TranslateViewController.swift */; };
 		334737DA1CD433AF00660CD5 /* TranslateAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334737D91CD433AF00660CD5 /* TranslateAPIClient.swift */; };
@@ -57,7 +57,7 @@
 		3329A0C61CD2E56C000BC49F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3329A0C81CD2E56C000BC49F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3329A0CD1CD2E56C000BC49F /* QuickTranslateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuickTranslateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3329A0D11CD2E56C000BC49F /* QuickTranslateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickTranslateTests.swift; sourceTree = "<group>"; };
+		3329A0D11CD2E56C000BC49F /* QuickTranslateModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickTranslateModelTests.swift; sourceTree = "<group>"; };
 		3329A0D31CD2E56C000BC49F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3329A0D81CD2E56C000BC49F /* QuickTranslateUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuickTranslateUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3329A0DC1CD2E56C000BC49F /* QuickTranslateUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickTranslateUITests.swift; sourceTree = "<group>"; };
@@ -153,7 +153,7 @@
 		3329A0D01CD2E56C000BC49F /* QuickTranslateTests */ = {
 			isa = PBXGroup;
 			children = (
-				3329A0D11CD2E56C000BC49F /* QuickTranslateTests.swift */,
+				3329A0D11CD2E56C000BC49F /* QuickTranslateModelTests.swift */,
 				3329A0D31CD2E56C000BC49F /* Info.plist */,
 			);
 			path = QuickTranslateTests;
@@ -388,7 +388,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3329A0D21CD2E56C000BC49F /* QuickTranslateTests.swift in Sources */,
+				3329A0D21CD2E56C000BC49F /* QuickTranslateModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
