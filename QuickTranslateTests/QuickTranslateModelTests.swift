@@ -158,7 +158,7 @@ class QuickTranslateModelTests: XCTestCase {
                 print(err)
             }
             let results = Language.fetchLanguagesAscending(self.moc)
-            XCTAssert(results.count == self.updatedLanguageJson.count, "Failed to fetch 5 languages after syncing a smaller data set over existing data store")
+            XCTAssert(results.count == self.updatedLanguageJson.count, "Failed to fetch 5 languages after syncing a data set that should both add and delete languages from the local store")
         }
     }
 }
