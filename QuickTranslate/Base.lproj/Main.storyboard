@@ -51,6 +51,12 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Touch to type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cim-zO-ers">
+                                        <rect key="frame" x="20" y="17" width="134" height="26.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <color key="textColor" red="0.54901960780000003" green="0.54901960780000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eec-od-oLI">
                                         <rect key="frame" x="0.0" y="239" width="600" height="248"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -70,21 +76,21 @@
                                             <action selector="xButtonPressed:" destination="h0E-Tw-LIR" eventType="touchUpInside" id="2hd-br-1A3"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Touch to type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cim-zO-ers">
-                                        <rect key="frame" x="20" y="17.5" width="134" height="26.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <color key="textColor" red="0.54901960780000003" green="0.54901960780000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="zEv-qp-f9H">
+                                        <rect key="frame" x="281.5" y="345" width="37" height="37"/>
+                                        <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="zEv-qp-f9H" firstAttribute="centerY" secondItem="sAz-Pt-HbT" secondAttribute="centerY" id="2Hm-e7-6ti"/>
                                     <constraint firstItem="sAz-Pt-HbT" firstAttribute="height" secondItem="imU-yy-ci6" secondAttribute="height" id="3QY-14-1jR"/>
                                     <constraint firstItem="imU-yy-ci6" firstAttribute="leading" secondItem="BRn-YB-JRV" secondAttribute="leading" id="5x7-fq-OyL"/>
                                     <constraint firstItem="imU-yy-ci6" firstAttribute="top" secondItem="BRn-YB-JRV" secondAttribute="top" constant="10" id="72F-sC-Fwn"/>
                                     <constraint firstItem="mi6-JC-5bC" firstAttribute="top" secondItem="imU-yy-ci6" secondAttribute="bottom" id="8zI-bS-Zy2"/>
                                     <constraint firstItem="sAz-Pt-HbT" firstAttribute="width" secondItem="imU-yy-ci6" secondAttribute="width" id="9Us-DF-PlV"/>
                                     <constraint firstItem="sAz-Pt-HbT" firstAttribute="top" secondItem="mi6-JC-5bC" secondAttribute="bottom" id="FKv-VO-qqB"/>
+                                    <constraint firstItem="zEv-qp-f9H" firstAttribute="centerX" secondItem="BRn-YB-JRV" secondAttribute="centerX" id="Fmi-DP-M3R"/>
                                     <constraint firstItem="k2R-dF-Ja7" firstAttribute="top" secondItem="BRn-YB-JRV" secondAttribute="top" constant="10" id="LKQ-sf-sz2"/>
                                     <constraint firstItem="k2R-dF-Ja7" firstAttribute="top" secondItem="imU-yy-ci6" secondAttribute="top" id="QLZ-Hg-1fc"/>
                                     <constraint firstItem="sAz-Pt-HbT" firstAttribute="centerX" secondItem="BRn-YB-JRV" secondAttribute="centerX" id="RWb-um-gVC"/>
@@ -127,6 +133,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="zEv-qp-f9H" id="NYE-k9-mNh"/>
                         <outlet property="dismissKeyboardButton" destination="eec-od-oLI" id="qk7-kS-037"/>
                         <outlet property="entryPlaceholderLabel" destination="Cim-zO-ers" id="7mn-E1-sIq"/>
                         <outlet property="entryTextView" destination="imU-yy-ci6" id="aFu-g6-Dlm"/>

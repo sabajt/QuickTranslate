@@ -18,6 +18,7 @@ class TranslateViewController: UIViewController {
     @IBOutlet weak var dismissKeyboardButton: UIButton!
     @IBOutlet weak var xButton: UIButton!
     @IBOutlet weak var entryPlaceholderLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,7 +102,11 @@ class TranslateViewController: UIViewController {
     func translateText(query: String) {
         let languageCode = DataManager.sharedInstance.selectedLanguageCode
         
+        resultTextView.text = ""
+        activityIndicator.startAnimating()
+        
         TranslationAPIClient.sharedInstance.getTranslation(query, languageCode: languageCode) { (errorMessage, translatedText) in
+            self.activityIndicator.stopAnimating()
             if errorMessage != nil {
                 print("error: \(errorMessage)")
             } else if let result = translatedText{
