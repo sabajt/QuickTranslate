@@ -20,6 +20,9 @@ class TranslateViewController: UIViewController {
     @IBOutlet weak var entryPlaceholderLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    var needsUpdatedTranslation = false
+    var resultsViewIsClear = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,7 +31,19 @@ class TranslateViewController: UIViewController {
         updateBarButtonName()
         clearResultTextView()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TranslateViewController.updateBarButtonName), name: DataManager.selectedLanguageCodeChangedNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TranslateViewController.handleLanguageCodeChanged), name: DataManager.selectedLanguageCodeChangedNotification, object: nil)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // If we changed the target language and have a current translation, update it
+        if needsUpdatedTranslation {
+            needsUpdatedTranslation = false
+            if entryTextView.text.characters.count > 0 && !resultsViewIsClear {
+                translateText(entryTextView.text)
+            }
+        }
     }
     
     @IBAction func dismissKeyboardButtonPressed(sender: UIButton) {
@@ -37,8 +52,10 @@ class TranslateViewController: UIViewController {
     
     @IBAction func xButtonPressed(sender: UIButton) {
         if entryTextView.text.characters.count > 0 {
+            // Pressing the X button with text clears text
             entryTextView.text = ""
         } else {
+            // Pressing the X button after text is already clears dismisses the keyboard
             focusEntryView(false)
         }
         clearResultTextView()
@@ -77,6 +94,13 @@ class TranslateViewController: UIViewController {
         }
     }
     
+    func handleLanguageCodeChanged() {
+        updateBarButtonName()
+        
+        // Set flag to check if we need an updated translation when the view reappears.
+        needsUpdatedTranslation = true
+    }
+    
     func updateBarButtonName() {
         if let barButtonItem = navigationItem.rightBarButtonItem {
             if let language = Language.fetchSelectedLanguage(DataManager.sharedInstance.managedObjectContext) {
@@ -90,11 +114,13 @@ class TranslateViewController: UIViewController {
     }
     
     func updateResultTextView(result: String) {
+        resultsViewIsClear = false
         resultTextView.textColor = UIColor.darkGrayColor()
         resultTextView.text = result
     }
     
     func clearResultTextView() {
+        resultsViewIsClear = true
         resultTextView.textColor = UIColor.lightGrayColor()
         resultTextView.text = "Translation"
     }

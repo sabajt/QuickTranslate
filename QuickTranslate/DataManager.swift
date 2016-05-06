@@ -41,9 +41,11 @@ class DataManager {
             }
         }
         set {
-            _selectedLanguageCode = newValue
-            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "selectedLanguageCode") // 3
-            NSNotificationCenter.defaultCenter().postNotificationName(DataManager.selectedLanguageCodeChangedNotification, object: nil)
+            if _selectedLanguageCode != newValue {
+                _selectedLanguageCode = newValue
+                NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: "selectedLanguageCode") // 3
+                NSNotificationCenter.defaultCenter().postNotificationName(DataManager.selectedLanguageCodeChangedNotification, object: nil)
+            }
         }
     }
     
