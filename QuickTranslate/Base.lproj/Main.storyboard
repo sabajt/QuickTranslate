@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="l1u-4f-3nu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="l1u-4f-3nu">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -28,7 +28,7 @@
                                             <constraint firstAttribute="height" constant="10" id="pGZ-Hq-SN0"/>
                                         </constraints>
                                     </view>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Entry Field" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="imU-yy-ci6">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="imU-yy-ci6">
                                         <rect key="frame" x="0.0" y="10" width="600" height="229"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -45,7 +45,7 @@
                                             <outlet property="delegate" destination="h0E-Tw-LIR" id="SJa-uT-EtS"/>
                                         </connections>
                                     </textView>
-                                    <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" delaysContentTouches="NO" text="Translation Field" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="sAz-Pt-HbT">
+                                    <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" delaysContentTouches="NO" text="Translation Field" translatesAutoresizingMaskIntoConstraints="NO" id="sAz-Pt-HbT">
                                         <rect key="frame" x="0.0" y="249" width="600" height="229"/>
                                         <color key="backgroundColor" red="0.96906705841579655" green="0.9868087369109948" blue="0.96580786207568292" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
@@ -58,6 +58,24 @@
                                             <action selector="dismissKeyboardButtonPressed:" destination="h0E-Tw-LIR" eventType="touchUpInside" id="n0R-Hn-cy3"/>
                                         </connections>
                                     </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k2R-dF-Ja7">
+                                        <rect key="frame" x="550" y="10" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="9yT-Wr-GGQ"/>
+                                            <constraint firstAttribute="height" constant="50" id="Pb2-8N-dge"/>
+                                        </constraints>
+                                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" image="xIcon"/>
+                                        <connections>
+                                            <action selector="xButtonPressed:" destination="h0E-Tw-LIR" eventType="touchUpInside" id="2hd-br-1A3"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Touch to type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cim-zO-ers">
+                                        <rect key="frame" x="20" y="17.5" width="134" height="26.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <color key="textColor" red="0.54901960780000003" green="0.54901960780000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -67,9 +85,15 @@
                                     <constraint firstItem="mi6-JC-5bC" firstAttribute="top" secondItem="imU-yy-ci6" secondAttribute="bottom" id="8zI-bS-Zy2"/>
                                     <constraint firstItem="sAz-Pt-HbT" firstAttribute="width" secondItem="imU-yy-ci6" secondAttribute="width" id="9Us-DF-PlV"/>
                                     <constraint firstItem="sAz-Pt-HbT" firstAttribute="top" secondItem="mi6-JC-5bC" secondAttribute="bottom" id="FKv-VO-qqB"/>
+                                    <constraint firstItem="k2R-dF-Ja7" firstAttribute="top" secondItem="BRn-YB-JRV" secondAttribute="top" constant="10" id="LKQ-sf-sz2"/>
+                                    <constraint firstItem="k2R-dF-Ja7" firstAttribute="top" secondItem="imU-yy-ci6" secondAttribute="top" id="QLZ-Hg-1fc"/>
                                     <constraint firstItem="sAz-Pt-HbT" firstAttribute="centerX" secondItem="BRn-YB-JRV" secondAttribute="centerX" id="RWb-um-gVC"/>
+                                    <constraint firstItem="imU-yy-ci6" firstAttribute="top" secondItem="Cim-zO-ers" secondAttribute="bottom" constant="-34" id="WV0-8D-jXG"/>
+                                    <constraint firstItem="Cim-zO-ers" firstAttribute="leading" secondItem="BRn-YB-JRV" secondAttribute="leading" constant="20" id="Xkd-fU-kEF"/>
+                                    <constraint firstAttribute="trailing" secondItem="k2R-dF-Ja7" secondAttribute="trailing" id="ZgL-2N-jtB"/>
                                     <constraint firstItem="mi6-JC-5bC" firstAttribute="centerY" secondItem="BRn-YB-JRV" secondAttribute="centerY" id="dhK-sp-u2n"/>
                                     <constraint firstAttribute="trailing" secondItem="eec-od-oLI" secondAttribute="trailing" id="hP7-Fh-iMH"/>
+                                    <constraint firstItem="Cim-zO-ers" firstAttribute="top" secondItem="BRn-YB-JRV" secondAttribute="top" constant="16" id="hdn-Kg-442"/>
                                     <constraint firstAttribute="trailing" secondItem="imU-yy-ci6" secondAttribute="trailing" id="jNg-3v-lfC"/>
                                     <constraint firstAttribute="trailing" secondItem="mi6-JC-5bC" secondAttribute="trailing" id="kx9-86-S8b"/>
                                     <constraint firstItem="eec-od-oLI" firstAttribute="top" secondItem="imU-yy-ci6" secondAttribute="bottom" id="mwX-bB-1EF"/>
@@ -81,6 +105,8 @@
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="uNG-Kf-cvX"/>
+                                        <exclude reference="hdn-Kg-442"/>
+                                        <exclude reference="LKQ-sf-sz2"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -102,8 +128,10 @@
                     </navigationItem>
                     <connections>
                         <outlet property="dismissKeyboardButton" destination="eec-od-oLI" id="qk7-kS-037"/>
+                        <outlet property="entryPlaceholderLabel" destination="Cim-zO-ers" id="7mn-E1-sIq"/>
                         <outlet property="entryTextView" destination="imU-yy-ci6" id="aFu-g6-Dlm"/>
                         <outlet property="resultTextView" destination="sAz-Pt-HbT" id="Xqg-TE-d2k"/>
+                        <outlet property="xButton" destination="k2R-dF-Ja7" id="sg6-36-Apj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WJO-ty-ETa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -327,5 +355,6 @@
     </scenes>
     <resources>
         <image name="checkIcon" width="30" height="23"/>
+        <image name="xIcon" width="20" height="20"/>
     </resources>
 </document>

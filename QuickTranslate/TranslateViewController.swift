@@ -16,6 +16,8 @@ class TranslateViewController: UIViewController {
     @IBOutlet weak var entryTextView: UITextView!
     @IBOutlet weak var resultTextView: UITextView!
     @IBOutlet weak var dismissKeyboardButton: UIButton!
+    @IBOutlet weak var xButton: UIButton!
+    @IBOutlet weak var entryPlaceholderLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,23 +29,47 @@ class TranslateViewController: UIViewController {
     }
     
     @IBAction func dismissKeyboardButtonPressed(sender: UIButton) {
-        hideKeyboard()
+        focusEntryView(false)
     }
     
-    func showKeyboard() {
-        dismissKeyboardButton.hidden = false
-        UIView.animateWithDuration(TranslateViewController.keyboardTransitionDuration) {
-            self.dismissKeyboardButton.alpha = TranslateViewController.dismissKeyboardButtonDefaultAlpha
+    @IBAction func xButtonPressed(sender: UIButton) {
+        if entryTextView.text.characters.count > 0 {
+            entryTextView.text = ""
+        } else {
+            focusEntryView(false)
         }
     }
     
-    func hideKeyboard() {
-        entryTextView.resignFirstResponder()
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         
-        UIView.animateWithDuration(TranslateViewController.keyboardTransitionDuration, animations: {
-            self.dismissKeyboardButton.alpha = 0
-        }) { (_) in
-            self.dismissKeyboardButton.hidden = true
+        // Make sure entry text doesn't overlap with the X button
+        let margin: CGFloat = 20
+        entryTextView.textContainerInset.right = CGRectGetWidth(xButton.frame) * 0.8
+        entryTextView.textContainerInset.left = margin
+        resultTextView.textContainerInset.right = margin
+        resultTextView.textContainerInset.left = margin
+    }
+    
+    func focusEntryView(focus: Bool) {
+        if focus {
+            dismissKeyboardButton.hidden = false
+            xButton.hidden = false
+            
+            UIView.animateWithDuration(TranslateViewController.keyboardTransitionDuration) {
+                self.dismissKeyboardButton.alpha = TranslateViewController.dismissKeyboardButtonDefaultAlpha
+                self.xButton.alpha = 1
+            }
+        } else {
+            entryTextView.resignFirstResponder()
+            
+            UIView.animateWithDuration(TranslateViewController.keyboardTransitionDuration, animations: {
+                self.xButton.alpha = 0
+                self.dismissKeyboardButton.alpha = 0
+            }) { (_) in
+                self.xButton.hidden = true
+                self.dismissKeyboardButton.hidden = true
+            }
         }
     }
     
@@ -63,14 +89,13 @@ class TranslateViewController: UIViewController {
 extension TranslateViewController: UITextViewDelegate {
     
     func textViewShouldBeginEditing(textView: UITextView) -> Bool {
-        showKeyboard()
+        focusEntryView(true)
         return true
     }
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             if let query = textView.text where query.characters.count > 0 {
-                
                 let languageCode = DataManager.sharedInstance.selectedLanguageCode
                 TranslationAPIClient.sharedInstance.getTranslation(query, languageCode: languageCode) { (errorMessage, translatedText) in
                     if errorMessage != nil {
@@ -81,9 +106,13 @@ extension TranslateViewController: UITextViewDelegate {
                     }
                 }
             }
-            hideKeyboard()
+            focusEntryView(false)
             return false
         }
         return true
+    }
+    
+    func textViewDidChangeSelection(textView: UITextView) {
+        entryPlaceholderLabel.hidden = textView.text.characters.count > 0
     }
 }
