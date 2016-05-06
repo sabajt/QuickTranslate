@@ -84,6 +84,19 @@ class TranslateViewController: UIViewController {
             }
         }
     }
+    
+    func translateText(query: String) {
+        let languageCode = DataManager.sharedInstance.selectedLanguageCode
+        
+        TranslationAPIClient.sharedInstance.getTranslation(query, languageCode: languageCode) { (errorMessage, translatedText) in
+            if errorMessage != nil {
+                print("error: \(errorMessage)")
+            } else if let result = translatedText{
+                self.resultTextView.text = translatedText
+                Phrase.createOrUpdatePhraseInBackground(languageCode, sourceText: query, translatedText: result, dateCreated: NSDate())
+            }
+        }
+    }
 }
 
 extension TranslateViewController: UITextViewDelegate {
@@ -96,15 +109,7 @@ extension TranslateViewController: UITextViewDelegate {
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             if let query = textView.text where query.characters.count > 0 {
-                let languageCode = DataManager.sharedInstance.selectedLanguageCode
-                TranslationAPIClient.sharedInstance.getTranslation(query, languageCode: languageCode) { (errorMessage, translatedText) in
-                    if errorMessage != nil {
-                        print("error: \(errorMessage)")
-                    } else if let result = translatedText{
-                        self.resultTextView.text = translatedText
-                        Phrase.createOrUpdatePhraseInBackground(languageCode, sourceText: query, translatedText: result, dateCreated: NSDate())
-                    }
-                }
+                translateText(query)
             }
             focusEntryView(false)
             return false
