@@ -24,8 +24,10 @@ class TranslateViewController: UIViewController {
         
         dismissKeyboardButton.hidden = true
         
-        updateSelectedLanguageCode()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TranslateViewController.updateSelectedLanguageCode), name: DataManager.selectedLanguageCodeChangedNotification, object: nil)
+        updateBarButtonName()
+        clearResultTextView()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TranslateViewController.updateBarButtonName), name: DataManager.selectedLanguageCodeChangedNotification, object: nil)
     }
     
     @IBAction func dismissKeyboardButtonPressed(sender: UIButton) {
@@ -38,6 +40,7 @@ class TranslateViewController: UIViewController {
         } else {
             focusEntryView(false)
         }
+        clearResultTextView()
     }
     
     override func viewDidLayoutSubviews() {
@@ -73,7 +76,7 @@ class TranslateViewController: UIViewController {
         }
     }
     
-    func updateSelectedLanguageCode() {
+    func updateBarButtonName() {
         if let barButtonItem = navigationItem.rightBarButtonItem {
             if let language = Language.fetchSelectedLanguage(DataManager.sharedInstance.managedObjectContext) {
                 barButtonItem.title = language.name
@@ -85,6 +88,16 @@ class TranslateViewController: UIViewController {
         }
     }
     
+    func updateResultTextView(result: String) {
+        resultTextView.textColor = UIColor.darkGrayColor()
+        resultTextView.text = result
+    }
+    
+    func clearResultTextView() {
+        resultTextView.textColor = UIColor.lightGrayColor()
+        resultTextView.text = "Translation"
+    }
+    
     func translateText(query: String) {
         let languageCode = DataManager.sharedInstance.selectedLanguageCode
         
@@ -92,7 +105,7 @@ class TranslateViewController: UIViewController {
             if errorMessage != nil {
                 print("error: \(errorMessage)")
             } else if let result = translatedText{
-                self.resultTextView.text = translatedText
+                self.updateResultTextView(result)
                 Phrase.createOrUpdatePhraseInBackground(languageCode, sourceText: query, translatedText: result, dateCreated: NSDate())
             }
         }
@@ -113,6 +126,8 @@ extension TranslateViewController: UITextViewDelegate {
             }
             focusEntryView(false)
             return false
+        } else {
+            clearResultTextView()
         }
         return true
     }

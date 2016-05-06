@@ -45,9 +45,9 @@
                                             <outlet property="delegate" destination="h0E-Tw-LIR" id="SJa-uT-EtS"/>
                                         </connections>
                                     </textView>
-                                    <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" delaysContentTouches="NO" text="Translation Field" translatesAutoresizingMaskIntoConstraints="NO" id="sAz-Pt-HbT">
+                                    <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" delaysContentTouches="NO" text="Translation" translatesAutoresizingMaskIntoConstraints="NO" id="sAz-Pt-HbT">
                                         <rect key="frame" x="0.0" y="249" width="600" height="229"/>
-                                        <color key="backgroundColor" red="0.96906705841579655" green="0.9868087369109948" blue="0.96580786207568292" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.90618408403913764" green="0.95451570680628273" blue="0.91330329368946794" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
@@ -281,7 +281,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.96906705839999996" green="0.98680873690000004" blue="0.96580786210000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.90618408399999995" green="0.95451570679999997" blue="0.91330329369999996" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstItem="0vV-XT-jJH" firstAttribute="leading" secondItem="kBy-fw-zVY" secondAttribute="leading" constant="8" id="9cd-ss-q0v"/>
                                                 <constraint firstItem="0vV-XT-jJH" firstAttribute="top" secondItem="kBy-fw-zVY" secondAttribute="top" constant="8" id="IyF-3i-DKp"/>
