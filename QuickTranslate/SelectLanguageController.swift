@@ -33,7 +33,7 @@ class SelectLanguageController: UITableViewController {
             if let message = errorMessage {
                 print(message)
             } else if let languagesJson = json {
-                Language.syncLanguagesInBackground(languagesJson)
+                Language.syncLanguagesInBackground(languagesJson, parentMoc: DataManager.sharedInstance.managedObjectContext)
             }
         }
         

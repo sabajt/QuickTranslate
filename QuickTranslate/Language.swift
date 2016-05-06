@@ -72,39 +72,45 @@ class Language: NSManagedObject {
         return Language.fetchLanguage(moc, code: DataManager.sharedInstance.selectedLanguageCode)
     }
     
-    // TODO: Handle deleting stale languages
-    class func syncLanguagesInBackground(json: [[String: String]]) {
+    class func syncLanguagesInBackground(json: [[String: String]], parentMoc: NSManagedObjectContext, completion: (() -> Void)?=nil) {
+
         let privateMoc = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
-        privateMoc.parentContext = DataManager.sharedInstance.managedObjectContext
+        privateMoc.parentContext = parentMoc
         privateMoc.performBlock {
+            let existingLanguages = Language.fetchLanguagesAscending(privateMoc)
+            var languageCodesFromResponse = [String]()
+            
             for dictionary in json {
+                // Make sure there is a language code, and keep track of it
                 guard let languageCode = dictionary["language"] else {
                     print("Failed to parse language json")
                     continue
                 }
-                
-                // Fetch all languages from the local store matching language codes from the json payload
-                let fetchRequest = NSFetchRequest(entityName: "Language")
-                fetchRequest.predicate = NSPredicate(format: "languageCode = %@", languageCode)
-                
-                var results: [Language] = []
-                do {
-                    results = try privateMoc.executeFetchRequest(fetchRequest) as! [Language]
-                } catch let error as NSError {
-                    print("Failed to fetch languages: \(error.userInfo)")
-                    continue
-                }
+                languageCodesFromResponse.append(languageCode)
                 
                 // Create a new language if no match is found
-                if results.count == 0 {
+                if Language.fetchLanguage(privateMoc, code: languageCode) == nil {
                     Language.createLanguage(dictionary, moc: privateMoc)
+                }
+            }
+            
+            // Delete any language in our local store which is not part of the JSON payload
+            for language in existingLanguages {
+                if let languageCode = language.languageCode {
+                    if languageCodesFromResponse.indexOf(languageCode) == nil {
+                        privateMoc.deleteObject(language)
+                    }
                 }
             }
             
             do {
                 try privateMoc.save()
             } catch {
-                fatalError("Failure to save context: \(error)")
+                print("Failure to save context: \(error)")
+            }
+            
+            if let c = completion {
+                c()
             }
         }
     }
