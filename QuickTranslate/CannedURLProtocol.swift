@@ -47,10 +47,6 @@ class CannedURLProtocol: NSURLProtocol {
     }
     
     override func startLoading() {
-        
-        print("start loading")
-        
-        
         guard let urlClient = client else {
             print("CannedURLProtocol start loading error: missing client")
             return
