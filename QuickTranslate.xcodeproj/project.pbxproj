@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		24F558A65874B62AEF27E929 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E2989D8D4B58BAEE467D78A /* Pods.framework */; };
+		3314CBD11CDD8A88003EDA00 /* TranslateAPIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3314CBD01CDD8A88003EDA00 /* TranslateAPIClientTests.swift */; };
+		3314CBD31CDE1FE3003EDA00 /* CannedURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3314CBD21CDE1FE3003EDA00 /* CannedURLProtocol.swift */; };
 		3329A0BA1CD2E56C000BC49F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3329A0B91CD2E56C000BC49F /* AppDelegate.swift */; };
 		3329A0BC1CD2E56C000BC49F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3329A0BB1CD2E56C000BC49F /* ViewController.swift */; };
 		3329A0BF1CD2E56C000BC49F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3329A0BD1CD2E56C000BC49F /* Main.storyboard */; };
@@ -48,6 +50,8 @@
 
 /* Begin PBXFileReference section */
 		1E2989D8D4B58BAEE467D78A /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3314CBD01CDD8A88003EDA00 /* TranslateAPIClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslateAPIClientTests.swift; sourceTree = "<group>"; };
+		3314CBD21CDE1FE3003EDA00 /* CannedURLProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CannedURLProtocol.swift; sourceTree = "<group>"; };
 		3329A0B61CD2E56C000BC49F /* QuickTranslate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickTranslate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3329A0B91CD2E56C000BC49F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3329A0BB1CD2E56C000BC49F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +150,7 @@
 				33E3DD2D1CD52A3D00EAD816 /* SelectLanguageController.swift */,
 				33E3DD371CD5430B00EAD816 /* DataManager.swift */,
 				33E3DD3B1CD977B100EAD816 /* SelectLanguageCell.swift */,
+				3314CBD21CDE1FE3003EDA00 /* CannedURLProtocol.swift */,
 			);
 			path = QuickTranslate;
 			sourceTree = "<group>";
@@ -154,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				3329A0D11CD2E56C000BC49F /* QuickTranslateModelTests.swift */,
+				3314CBD01CDD8A88003EDA00 /* TranslateAPIClientTests.swift */,
 				3329A0D31CD2E56C000BC49F /* Info.plist */,
 			);
 			path = QuickTranslateTests;
@@ -372,6 +378,7 @@
 				334737DA1CD433AF00660CD5 /* TranslateAPIClient.swift in Sources */,
 				33E3DD3C1CD977B100EAD816 /* SelectLanguageCell.swift in Sources */,
 				33E3DD351CD5322000EAD816 /* Phrase+CoreDataProperties.swift in Sources */,
+				3314CBD31CDE1FE3003EDA00 /* CannedURLProtocol.swift in Sources */,
 				33E3DD2E1CD52A3D00EAD816 /* SelectLanguageController.swift in Sources */,
 				3329A0C21CD2E56C000BC49F /* QuickTranslate.xcdatamodeld in Sources */,
 				33E3DD361CD5322000EAD816 /* Phrase.swift in Sources */,
@@ -388,6 +395,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3314CBD11CDD8A88003EDA00 /* TranslateAPIClientTests.swift in Sources */,
 				3329A0D21CD2E56C000BC49F /* QuickTranslateModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -14,12 +14,22 @@ class TranslationAPIClient {
     private let googleAPIKey = "AIzaSyBKKwGsyIBLE_8j5kRVhA8YZLEXroP11N0"
     private let baseURLString = "https://www.googleapis.com/language/translate/v2"
     private let sourceLanguageCode = "en"
+    private var sessionManager = Manager()
+
+    // Only needed for custom session configuration, for example when mocking network calls for testing
+    func setSessionConfiguration(configuration: NSURLSessionConfiguration?) {
+        if let config = configuration {
+            sessionManager = Manager(configuration: config)
+        } else {
+            sessionManager = Manager()
+        }
+    }
     
     func getSupportedLanguages(completion: (errorMessage: String?, json: [[String: String]]?) -> Void) {
         let urlString = baseURLString + "/languages"
         let params = ["key": googleAPIKey, "target": sourceLanguageCode]
         
-        Alamofire.request(.GET, urlString, parameters: params).validate().responseJSON { response in
+        sessionManager.request(.GET, urlString, parameters: params).validate().responseJSON { response in
             if response.result.isFailure {
                 let message = self.errorMessageFromResponse(response)
                 completion(errorMessage: message, json: nil)
@@ -44,7 +54,7 @@ class TranslationAPIClient {
     func getTranslation(text: String, languageCode: String, completion: (errorMessage: String?, translatedText: String?) -> Void) {
         let params = ["key": googleAPIKey, "source": sourceLanguageCode, "target": languageCode, "q" : text]
         
-        Alamofire.request(.GET, baseURLString, parameters: params).validate().responseJSON { response in
+        sessionManager.request(.GET, baseURLString, parameters: params).validate().responseJSON { response in
             if response.result.isFailure {
                 let message = self.errorMessageFromResponse(response)
                 completion(errorMessage: message, translatedText: nil)
