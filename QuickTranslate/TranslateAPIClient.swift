@@ -40,11 +40,11 @@ class TranslationAPIClient {
                 return
             }
             guard let data = value["data"] as? [String: AnyObject] else {
-                completion(errorMessage: "Failure: No 'data' field", json: nil)
+                completion(errorMessage: "Failure: No data field", json: nil)
                 return
             }
             guard let languages = data["languages"] as? [[String: String]] else {
-                completion(errorMessage: "Failure: No 'languages' field", json: nil)
+                completion(errorMessage: "Failure: No languages field", json: nil)
                 return
             }
             completion(errorMessage: nil, json: languages)
