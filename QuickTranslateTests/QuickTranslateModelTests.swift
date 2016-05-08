@@ -93,7 +93,8 @@ class QuickTranslateModelTests: XCTestCase {
     func testSyncLanguages() {
         // Test syncing a small batch of languages with no existing local store
         var expectation = expectationWithDescription("Synchronize")
-        Language.syncLanguagesInBackground(smallLanguageJson, parentMoc: moc) {
+        Language.syncLanguagesInBackground(smallLanguageJson, parentMoc: moc) { (success) in
+            XCTAssert(success, "Expected sync languages operation success")
             self.saveInMemoryMoc()
             expectation.fulfill()
         }
@@ -107,7 +108,8 @@ class QuickTranslateModelTests: XCTestCase {
         
         // Test syncing the exact same data set
         expectation = expectationWithDescription("Synchronize")
-        Language.syncLanguagesInBackground(smallLanguageJson, parentMoc: moc) {
+        Language.syncLanguagesInBackground(smallLanguageJson, parentMoc: moc) { (success) in
+            XCTAssert(success, "Expected sync languages operation success")
             self.saveInMemoryMoc()
             expectation.fulfill()
         }
@@ -121,7 +123,8 @@ class QuickTranslateModelTests: XCTestCase {
 
         // Test syncing a larger data set with some overlapping languages
         expectation = expectationWithDescription("Synchronize")
-        Language.syncLanguagesInBackground(largeLanguageJson, parentMoc: moc) {
+        Language.syncLanguagesInBackground(largeLanguageJson, parentMoc: moc) { (success) in
+            XCTAssert(success, "Expected sync languages operation success")
             self.saveInMemoryMoc()
             expectation.fulfill()
         }
@@ -135,7 +138,8 @@ class QuickTranslateModelTests: XCTestCase {
         
         // Test syncing a smaller data set than the local store
         expectation = expectationWithDescription("Synchronize")
-        Language.syncLanguagesInBackground(mediumLanguageJson, parentMoc: moc) {
+        Language.syncLanguagesInBackground(mediumLanguageJson, parentMoc: moc) { (success) in
+            XCTAssert(success, "Expected sync languages operation success")
             self.saveInMemoryMoc()
             expectation.fulfill()
         }
@@ -149,7 +153,8 @@ class QuickTranslateModelTests: XCTestCase {
         
         // Test syncing a data set that should both add and delete languages from the local store
         expectation = expectationWithDescription("Synchronize")
-        Language.syncLanguagesInBackground(updatedLanguageJson, parentMoc: moc) {
+        Language.syncLanguagesInBackground(updatedLanguageJson, parentMoc: moc) { (success) in
+            XCTAssert(success, "Expected sync languages operation success")
             self.saveInMemoryMoc()
             expectation.fulfill()
         }

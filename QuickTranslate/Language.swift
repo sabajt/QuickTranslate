@@ -72,7 +72,7 @@ class Language: NSManagedObject {
         return Language.fetchLanguage(moc, code: DataManager.sharedInstance.selectedLanguageCode)
     }
     
-    class func syncLanguagesInBackground(json: [[String: String]], parentMoc: NSManagedObjectContext, completion: (() -> Void)?=nil) {
+    class func syncLanguagesInBackground(json: [[String: String]], parentMoc: NSManagedObjectContext, completion: ((success: Bool) -> Void)?=nil) {
 
         let privateMoc = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
         privateMoc.parentContext = parentMoc
@@ -83,7 +83,7 @@ class Language: NSManagedObject {
             for dictionary in json {
                 // Make sure there is a language code, and keep track of it
                 guard let languageCode = dictionary["language"] else {
-                    print("Failed to parse language json")
+                    print("Warning: Failed to parse language json, ignoring malformed data")
                     continue
                 }
                 languageCodesFromResponse.append(languageCode)
@@ -107,10 +107,14 @@ class Language: NSManagedObject {
                 try privateMoc.save()
             } catch {
                 print("Failure to save context: \(error)")
+                if let c = completion {
+                    c(success: false)
+                }
+                return
             }
             
             if let c = completion {
-                c()
+                c(success: true)
             }
         }
     }
