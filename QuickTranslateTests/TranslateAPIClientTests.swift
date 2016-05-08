@@ -32,9 +32,9 @@ class TranslateAPIClientTests: XCTestCase {
         let responseJson = [
             "data": [
                 "languages":[
-                    ["language": "en"],
-                    ["language": "fr"],
-                    ["language": "sp"]
+                    ["language": "en", "name" : "English"],
+                    ["language": "fr", "name" : "French"],
+                    ["language": "sp", "name" : "Spanish"]
                 ]
             ]
         ]
@@ -85,9 +85,9 @@ class TranslateAPIClientTests: XCTestCase {
         let responseJson = [
             "data": [
                 "some_unexpected_field_where_languages_should_be":[
-                    ["language": "en"],
-                    ["language": "fr"],
-                    ["language": "sp"]
+                    ["language": "en", "name" : "English"],
+                    ["language": "fr", "name" : "French"],
+                    ["language": "sp", "name" : "Spanish"]
                 ]
             ]
         ]
