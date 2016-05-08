@@ -14,6 +14,7 @@ class RecentViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.separatorStyle = .None
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableViewAutomaticDimension
     }
