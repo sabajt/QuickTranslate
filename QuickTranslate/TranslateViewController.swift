@@ -137,7 +137,7 @@ class TranslateViewController: UIViewController {
                 print("error: \(errorMessage)")
             } else if let result = translatedText{
                 self.updateResultTextView(result)
-                Phrase.createOrUpdatePhraseInBackground(languageCode, sourceText: query, translatedText: result, dateCreated: NSDate())
+                Phrase.createOrUpdatePhraseInBackground(languageCode, sourceText: query, translatedText: result, dateCreated: NSDate(), parentMoc: DataManager.sharedInstance.managedObjectContext)
             }
         }
     }

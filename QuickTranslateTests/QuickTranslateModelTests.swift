@@ -161,4 +161,69 @@ class QuickTranslateModelTests: XCTestCase {
             XCTAssert(results.count == self.updatedLanguageJson.count, "Failed to fetch 5 languages after syncing a data set that should both add and delete languages from the local store")
         }
     }
+    
+    // MARK: - Phrase
+    
+    func testCreatePhrase() {
+        let now = NSDate()
+        let phrase = Phrase.createPhrase("ct", sourceText: "Meow", translatedText: "Gimme dinner or I'll kill you in your sleep", dateCreated: now, moc: moc)
+        XCTAssert(phrase?.languageCode == "ct", "Failed to create Phrase entity with correct \"languageCode\" field")
+        XCTAssert(phrase?.sourceText == "Meow", "Failed to create Phrase entity with correct \"sourceText\" field")
+        XCTAssert(phrase?.translatedText == "Gimme dinner or I'll kill you in your sleep", "Failed to create Phrase entity with correct \"translatedText\" field")
+        XCTAssert((phrase?.dateCreated?.isEqualToDate(now))!, "Failed to create Phrase entity with correct \"dateCreated\" field")
+    }
+
+    func testCreateOrUpdatePhraseInBackground() {
+        // Test syncing a new phrase with no existing phrases in local store
+        let then = NSDate()
+        var expectation = expectationWithDescription("Sync phrase completion block")
+        Phrase.createOrUpdatePhraseInBackground("es", sourceText: "Hello", translatedText: "Hola", dateCreated: then, parentMoc: moc) { (success) in
+            XCTAssert(success, "Expected phrase syncing success")
+            expectation.fulfill()
+        }
+        waitForExpectationsWithTimeout(10) { (error) in
+            if let err = error {
+                print(err)
+            }
+        }
+        saveInMemoryMoc()
+        var results = Phrase.fetchPhrasesByMostRecent(moc)
+        XCTAssert(results.count == 1, "Expected to fetch 1 phrase")
+
+        // Test syncing the a phrase that matches an existing phrase in local store
+        let now = NSDate()
+        expectation = expectationWithDescription("Sync phrase completion block")
+        Phrase.createOrUpdatePhraseInBackground("es", sourceText: "Hello", translatedText: "Hola", dateCreated: now, parentMoc: moc) { (success) in
+            XCTAssert(success, "Expected phrase syncing success")
+            expectation.fulfill()
+        }
+        waitForExpectationsWithTimeout(10) { (error) in
+            if let err = error {
+                print(err)
+            }
+        }
+        saveInMemoryMoc()
+        results = Phrase.fetchPhrasesByMostRecent(moc)
+        XCTAssert(results.count == 1, "Expected to fetch 1 phrase")
+        XCTAssert(results.first!.dateCreated == now, "Expected phrase to have old date overwritten with new date")
+    }
+    
+    func testFetchPhrasesByMostRecent() {
+        // Create some phrases with an ascending range of dates
+        for i in 1...5 {
+            let date = NSDate().dateByAddingTimeInterval(Double(i))
+            
+            // Make the source text just be an ascending number so we have a way to check the date fetch worked
+            Phrase.createPhrase("arbitrary", sourceText: String(i), translatedText: "arbitrary:", dateCreated: date, moc: moc)
+        }
+        saveInMemoryMoc()
+        
+        // Verify that phrases fetched in the order by checking the source text
+        let results = Phrase.fetchPhrasesByMostRecent(moc)
+        var i = 1
+        for phrase in results {
+            XCTAssert(phrase.sourceText == String(i), "Unexpected phrase order")
+            i += 1
+        }
+    }
 }

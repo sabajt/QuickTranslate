@@ -29,10 +29,10 @@ class Phrase: NSManagedObject {
     }
     
     // Convenience for checking and updating an identical phrase before adding a new one
-    class func createOrUpdatePhraseInBackground(languageCode: String, sourceText: String, translatedText: String, dateCreated: NSDate) {
+    class func createOrUpdatePhraseInBackground(languageCode: String, sourceText: String, translatedText: String, dateCreated: NSDate, parentMoc: NSManagedObjectContext, completion: ((success: Bool) -> Void)?=nil) {
         
         let privateMoc = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
-        privateMoc.parentContext = DataManager.sharedInstance.managedObjectContext
+        privateMoc.parentContext = parentMoc
         privateMoc.performBlock {
             
             let fetchRequest = NSFetchRequest(entityName: "Phrase")
@@ -42,7 +42,10 @@ class Phrase: NSManagedObject {
             do {
                 results = try privateMoc.executeFetchRequest(fetchRequest) as! [Phrase]
             } catch let error as NSError {
-                print("Failed to fetch phrases: \(error.userInfo)")
+                print("Failed to execute fetch request: \(error.userInfo)")
+                if let c = completion {
+                    c(success: false)
+                }
                 return
             }
             
@@ -56,7 +59,15 @@ class Phrase: NSManagedObject {
             do {
                 try privateMoc.save()
             } catch {
-                fatalError("Failure to save context: \(error)")
+                if let c = completion {
+                    c(success: false)
+                }
+                return
+            }
+            
+            // Success!
+            if let c = completion {
+                c(success: true)
             }
         }
     }
