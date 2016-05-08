@@ -12,11 +12,13 @@ class RecentCell: UITableViewCell {
 
     @IBOutlet weak var sourceLabel: UILabel!
     @IBOutlet weak var translatedLabel: UILabel!
+    @IBOutlet weak var languageLabel: UILabel!
     
     func configureWithPhrase(phrase: Phrase) {
-        if let sourceText = phrase.sourceText, translatedText = phrase.translatedText {
+        if let sourceText = phrase.sourceText, translatedText = phrase.translatedText, languageName = phrase.languageName {
             sourceLabel.text = sourceText
             translatedLabel.text = translatedText
+            languageLabel.text = languageName
         }
     }
     
