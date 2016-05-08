@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:QuickTranslate/Phrase+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "container:QuickTranslate.xcodeproj">
    </FileRef>
    <FileRef

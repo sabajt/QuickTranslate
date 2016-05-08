@@ -2,7 +2,7 @@
 //  Phrase+CoreDataProperties.swift
 //  
 //
-//  Created by John Saba on 4/30/16.
+//  Created by John Saba on 5/8/16.
 //
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -14,9 +14,10 @@ import CoreData
 
 extension Phrase {
 
+    @NSManaged var dateCreated: NSDate?
     @NSManaged var languageCode: String?
     @NSManaged var sourceText: String?
     @NSManaged var translatedText: String?
-    @NSManaged var dateCreated: NSDate?
+    @NSManaged var languageName: String?
 
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15D21" minimumToolsVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Automatic">
     <entity name="Language" representedClassName=".Language" syncable="YES">
         <attribute name="languageCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -7,11 +7,12 @@
     <entity name="Phrase" representedClassName=".Phrase" syncable="YES">
         <attribute name="dateCreated" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="languageCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="languageName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sourceText" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="translatedText" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="Language" positionX="-63" positionY="-18" width="128" height="75"/>
-        <element name="Phrase" positionX="-45" positionY="18" width="128" height="105"/>
+        <element name="Phrase" positionX="-45" positionY="18" width="128" height="120"/>
     </elements>
 </model>

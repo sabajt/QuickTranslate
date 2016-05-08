@@ -12,7 +12,7 @@ import CoreData
 
 class Phrase: NSManagedObject {
 
-    class func createPhrase(languageCode: String, sourceText: String, translatedText: String, dateCreated: NSDate, moc: NSManagedObjectContext) -> Phrase? {
+    class func createPhrase(languageCode: String, languageName: String, sourceText: String, translatedText: String, dateCreated: NSDate, moc: NSManagedObjectContext) -> Phrase? {
         
         guard let entity = NSEntityDescription.entityForName("Phrase", inManagedObjectContext: moc) else {
             print("Failed to create Phrase object: couldn't find entity 'Phrase'")
@@ -21,6 +21,7 @@ class Phrase: NSManagedObject {
         
         let phrase = NSManagedObject(entity: entity, insertIntoManagedObjectContext: moc) as! Phrase
         phrase.languageCode = languageCode
+        phrase.languageName = languageName
         phrase.sourceText = sourceText
         phrase.translatedText = translatedText
         phrase.dateCreated = dateCreated
@@ -29,7 +30,7 @@ class Phrase: NSManagedObject {
     }
     
     // Convenience for checking and updating an identical phrase before adding a new one
-    class func createOrUpdatePhraseInBackground(languageCode: String, sourceText: String, translatedText: String, dateCreated: NSDate, parentMoc: NSManagedObjectContext, completion: ((success: Bool) -> Void)?=nil) {
+    class func createOrUpdatePhraseInBackground(languageCode: String, languageName: String, sourceText: String, translatedText: String, dateCreated: NSDate, parentMoc: NSManagedObjectContext, completion: ((success: Bool) -> Void)?=nil) {
         
         let privateMoc = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
         privateMoc.parentContext = parentMoc
@@ -53,7 +54,7 @@ class Phrase: NSManagedObject {
             if let phrase = results.first {
                 phrase.dateCreated = dateCreated
             } else {
-                Phrase.createPhrase(languageCode, sourceText: sourceText, translatedText: translatedText, dateCreated: dateCreated, moc: privateMoc)
+                Phrase.createPhrase(languageCode, languageName: languageName, sourceText: sourceText, translatedText: translatedText, dateCreated: dateCreated, moc: privateMoc)
             }
 
             do {

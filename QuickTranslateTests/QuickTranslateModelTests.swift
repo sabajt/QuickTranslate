@@ -171,8 +171,9 @@ class QuickTranslateModelTests: XCTestCase {
     
     func testCreatePhrase() {
         let now = NSDate()
-        let phrase = Phrase.createPhrase("ct", sourceText: "Meow", translatedText: "Gimme dinner or I'll kill you in your sleep", dateCreated: now, moc: moc)
+        let phrase = Phrase.createPhrase("ct", languageName: "Cat", sourceText: "Meow", translatedText: "Gimme dinner or I'll kill you in your sleep", dateCreated: now, moc: moc)
         XCTAssert(phrase?.languageCode == "ct", "Failed to create Phrase entity with correct \"languageCode\" field")
+        XCTAssert(phrase?.languageName == "Cat", "Failed to create Phrase entity with correct \"languageName\" field")
         XCTAssert(phrase?.sourceText == "Meow", "Failed to create Phrase entity with correct \"sourceText\" field")
         XCTAssert(phrase?.translatedText == "Gimme dinner or I'll kill you in your sleep", "Failed to create Phrase entity with correct \"translatedText\" field")
         XCTAssert((phrase?.dateCreated?.isEqualToDate(now))!, "Failed to create Phrase entity with correct \"dateCreated\" field")
@@ -182,7 +183,7 @@ class QuickTranslateModelTests: XCTestCase {
         // Test syncing a new phrase with no existing phrases in local store
         let then = NSDate()
         var expectation = expectationWithDescription("Sync phrase completion block")
-        Phrase.createOrUpdatePhraseInBackground("es", sourceText: "Hello", translatedText: "Hola", dateCreated: then, parentMoc: moc) { (success) in
+        Phrase.createOrUpdatePhraseInBackground("es", languageName: "Spanish", sourceText: "Hello", translatedText: "Hola", dateCreated: then, parentMoc: moc) { (success) in
             XCTAssert(success, "Expected phrase syncing success")
             expectation.fulfill()
         }
@@ -198,7 +199,7 @@ class QuickTranslateModelTests: XCTestCase {
         // Test syncing the a phrase that matches an existing phrase in local store
         let now = NSDate()
         expectation = expectationWithDescription("Sync phrase completion block")
-        Phrase.createOrUpdatePhraseInBackground("es", sourceText: "Hello", translatedText: "Hola", dateCreated: now, parentMoc: moc) { (success) in
+        Phrase.createOrUpdatePhraseInBackground("es", languageName: "Spanish", sourceText: "Hello", translatedText: "Hola", dateCreated: now, parentMoc: moc) { (success) in
             XCTAssert(success, "Expected phrase syncing success")
             expectation.fulfill()
         }
@@ -219,7 +220,7 @@ class QuickTranslateModelTests: XCTestCase {
             let date = NSDate().dateByAddingTimeInterval(Double(i))
             
             // Make the source text just be an ascending number so we have a way to check the date fetch worked
-            Phrase.createPhrase("arbitrary", sourceText: String(i), translatedText: "arbitrary:", dateCreated: date, moc: moc)
+            Phrase.createPhrase("arbitrary", languageName: "arbitrary", sourceText: String(i), translatedText: "arbitrary:", dateCreated: date, moc: moc)
         }
         saveInMemoryMoc()
         
