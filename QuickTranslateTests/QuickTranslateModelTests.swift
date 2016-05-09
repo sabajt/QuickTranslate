@@ -281,10 +281,10 @@ class QuickTranslateModelTests: XCTestCase {
         
         // Verify that phrases fetched in the order by checking the source text
         let results = Phrase.fetchPhrasesByMostRecent(moc)
-        var i = 1
+        var i = 5
         for phrase in results {
             XCTAssert(phrase.sourceText == String(i), "Unexpected phrase order")
-            i += 1
+            i -= 1
         }
     }
 }
