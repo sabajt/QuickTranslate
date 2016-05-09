@@ -12,7 +12,7 @@ import CoreData
 class SelectLanguageController: UITableViewController {
     
     lazy var fetchedResultsController: NSFetchedResultsController = {
-        let fetchRequest = Language.orderByAlphaFetchRequest()
+        let fetchRequest = Language.orderByAlphaFetchRequest(true)
         let moc = DataManager.sharedInstance.managedObjectContext
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController.delegate = self
@@ -63,7 +63,8 @@ class SelectLanguageController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SelectLanguageCell", forIndexPath: indexPath) as! SelectLanguageCell
         if let language = fetchedResultsController.objectAtIndexPath(indexPath) as? Language {
-            cell.configureWithLanguage(language)
+            let checkVisible = (language.languageCode == DataManager.sharedInstance.selectedLanguageCode)
+            cell.configureWithLanguage(language, checkVisible: checkVisible)
         }
         return cell
     }
@@ -121,7 +122,8 @@ extension SelectLanguageController: NSFetchedResultsControllerDelegate {
         case .Update:
             if let language = anObject as? Language {
                 let cell = self.tableView.cellForRowAtIndexPath(indexPath!)! as! SelectLanguageCell
-                cell.configureWithLanguage(language)
+                let checkVisible = (language.languageCode == DataManager.sharedInstance.selectedLanguageCode)
+                cell.configureWithLanguage(language, checkVisible: checkVisible)
             }
         case .Move:
             tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)

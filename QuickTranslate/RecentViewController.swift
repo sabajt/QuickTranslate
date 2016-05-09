@@ -11,14 +11,18 @@ import CoreData
 
 class RecentViewController: UITableViewController {
     
+    private var _filteredLanguageCode: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.separatorStyle = .None
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        updateBarButtonName()
     }
-
+    
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = Phrase.mostRecentFetchRequest()
         let moc = DataManager.sharedInstance.managedObjectContext
@@ -33,6 +37,26 @@ class RecentViewController: UITableViewController {
         
         return fetchedResultsController
     }()
+    
+    func updateBarButtonName() {
+        if let barButtonItem = navigationItem.rightBarButtonItem {
+            if let languageCode = filteredLanguageCode {
+                if let l = Language.fetchLanguage(DataManager.sharedInstance.managedObjectContext, code: languageCode), name = l.name {
+                    barButtonItem.title = "Filter: \(name)"
+                }
+            } else {
+                barButtonItem.title = "Filter: All Languages"
+            }
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        // Delegate allows us to update for a filtered language view
+        if let filterVC = segue.destinationViewController as? FilterLanguageViewController {
+            filterVC.delegate = self
+        }
+    }
     
     // MARK: - UITableViewDataSource
     
@@ -60,5 +84,33 @@ extension RecentViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         tableView.reloadData()
         tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: false)
+    }
+}
+
+extension RecentViewController: FilterLanguageViewControllerDelegate {
+    
+    var filteredLanguageCode: String? {
+        get {
+            return _filteredLanguageCode
+        }
+        set {
+            _filteredLanguageCode = newValue
+            updateBarButtonName()
+            
+            // Update our fetched results controller to only show phrases from the filtered language
+            let fetchRequest = Phrase.mostRecentFetchRequest(newValue)
+            
+            // fetchRequest is a read only property, but we can use the predicate and sortDescriptors from our convenience method
+            fetchedResultsController.fetchRequest.predicate = fetchRequest.predicate
+            fetchedResultsController.fetchRequest.sortDescriptors = fetchRequest.sortDescriptors
+            
+            do {
+                try fetchedResultsController.performFetch()
+            } catch {
+                fatalError("Failed to initialize FetchedResultsController: \(error)")
+            }
+            
+            tableView.reloadData()
+        }
     }
 }

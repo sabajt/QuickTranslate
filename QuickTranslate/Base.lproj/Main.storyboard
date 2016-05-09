@@ -145,10 +145,10 @@
             </objects>
             <point key="canvasLocation" x="1242" y="-697"/>
         </scene>
-        <!--Select Language Controller-->
+        <!--Language-->
         <scene sceneID="32A-aN-5an">
             <objects>
-                <tableViewController id="TDQ-nD-ONP" customClass="SelectLanguageController" customModule="QuickTranslate" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Language" id="TDQ-nD-ONP" customClass="SelectLanguageController" customModule="QuickTranslate" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="26i-jC-RPJ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -264,7 +264,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecentCell" id="T02-Hg-nol" customClass="RecentCell" customModule="QuickTranslate" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecentCell" id="T02-Hg-nol" customClass="RecentCell" customModule="QuickTranslate" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T02-Hg-nol" id="lHY-Ts-G6U">
@@ -343,7 +343,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="A3W-3H-ec6">
-                        <barButtonItem key="rightBarButtonItem" title="Filter Language" id="ppR-aW-vNE"/>
+                        <barButtonItem key="rightBarButtonItem" title="Filter: All Languages" id="ppR-aW-vNE">
+                            <connections>
+                                <segue destination="06V-HR-dbT" kind="show" id="XE1-iY-vaa"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QJ1-LP-Oxs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -368,6 +372,79 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lzb-1L-Ji4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="430" y="-30"/>
+        </scene>
+        <!--Filter-->
+        <scene sceneID="9S4-nw-r5d">
+            <objects>
+                <tableViewController title="Filter" id="06V-HR-dbT" customClass="FilterLanguageViewController" customModule="QuickTranslate" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ZO4-EP-utq">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SelectLanguageCell" id="tjg-7E-jWc" customClass="SelectLanguageCell" customModule="QuickTranslate" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tjg-7E-jWc" id="2so-S4-RQg">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gCx-JN-D2q">
+                                            <rect key="frame" x="8" y="11" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Lup-zy-v9i">
+                                            <rect key="frame" x="548" y="8" width="24" height="27"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="76" id="K9f-V8-xdS"/>
+                                                <constraint firstAttribute="height" constant="30" id="OKN-yj-UJP"/>
+                                                <constraint firstAttribute="width" secondItem="Lup-zy-v9i" secondAttribute="height" multiplier="1:1" id="Vvl-lw-58L"/>
+                                                <constraint firstAttribute="width" constant="24" id="Wrs-RU-gp4"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="Vvl-lw-58L"/>
+                                                    <exclude reference="K9f-V8-xdS"/>
+                                                    <exclude reference="OKN-yj-UJP"/>
+                                                </mask>
+                                            </variation>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Lup-zy-v9i" firstAttribute="top" secondItem="2so-S4-RQg" secondAttribute="topMargin" id="6CW-ok-Gh6"/>
+                                        <constraint firstItem="Lup-zy-v9i" firstAttribute="centerY" secondItem="2so-S4-RQg" secondAttribute="centerY" id="OmE-mM-oQU"/>
+                                        <constraint firstItem="gCx-JN-D2q" firstAttribute="top" secondItem="2so-S4-RQg" secondAttribute="topMargin" constant="3" id="OqI-TK-3LP"/>
+                                        <constraint firstItem="gCx-JN-D2q" firstAttribute="centerY" secondItem="2so-S4-RQg" secondAttribute="centerY" id="b79-l1-alW"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Lup-zy-v9i" secondAttribute="bottom" id="dDj-YE-U7k"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="gCx-JN-D2q" secondAttribute="leading" id="gpG-55-owB"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="gCx-JN-D2q" secondAttribute="bottom" constant="4" id="iTG-ay-yGp"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Lup-zy-v9i" secondAttribute="trailing" constant="20" id="rVj-FP-Hjm"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="OqI-TK-3LP"/>
+                                            <exclude reference="iTG-ay-yGp"/>
+                                            <exclude reference="OmE-mM-oQU"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="checkIcon" destination="Lup-zy-v9i" id="6Px-ku-9eG"/>
+                                    <outlet property="languageLabel" destination="gCx-JN-D2q" id="CRS-gd-fwe"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="06V-HR-dbT" id="Gi6-2T-j7z"/>
+                            <outlet property="delegate" destination="06V-HR-dbT" id="DIF-xH-oBu"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4eT-Vn-nGq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1966" y="-30"/>
         </scene>
     </scenes>
     <resources>

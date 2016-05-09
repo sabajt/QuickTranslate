@@ -30,16 +30,21 @@ class Language: NSManagedObject {
         return language
     }
     
-    class func orderByAlphaFetchRequest() -> NSFetchRequest {
+    class func orderByAlphaFetchRequest(ascending: Bool, limitToLanguagesContainingSavedPhrases: Bool=false) -> NSFetchRequest {
         let fetchRequest = NSFetchRequest(entityName: "Language")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        
+        if limitToLanguagesContainingSavedPhrases {
+            fetchRequest.predicate = NSPredicate(format: "phrases.@count != 0")
+        }
+        
         return fetchRequest
     }
-
+    
     class func fetchLanguagesAscending(moc: NSManagedObjectContext) -> [Language] {
         var results: [Language] = []
         do {
-            results = try moc.executeFetchRequest(Language.orderByAlphaFetchRequest()) as! [Language]
+            results = try moc.executeFetchRequest(Language.orderByAlphaFetchRequest(true)) as! [Language]
         } catch let error as NSError {
             print("Failed to fetch languages: \(error.userInfo)")
         }

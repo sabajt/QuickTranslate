@@ -13,9 +13,13 @@ class DataManager {
         let instance = DataManager()
         NSNotificationCenter.defaultCenter().addObserver(instance, selector: #selector(handleMOCObjectsDidChange), name: NSManagedObjectContextObjectsDidChangeNotification, object: nil)
         
-        // Create the Default Language before any networking
-        Language.createLanguage(["language": defaultLanguageCode, "name": defautlLanguageName], moc: instance.managedObjectContext)
-        instance.saveContext()
+        // Create the Default Language before any networking if needed
+        if let _ = Language.fetchLanguage(instance.managedObjectContext, code: defaultLanguageCode) {
+            // No-op
+        } else {
+            Language.createLanguage(["language": defaultLanguageCode, "name": defautlLanguageName], moc: instance.managedObjectContext)
+            instance.saveContext()
+        }
         
         return instance
     }()

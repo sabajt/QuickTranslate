@@ -76,9 +76,14 @@ class Phrase: NSManagedObject {
         }
     }
     
-    class func mostRecentFetchRequest() -> NSFetchRequest {
+    class func mostRecentFetchRequest(limitToLanguageCode: NSString?=nil) -> NSFetchRequest {
         let fetchRequest = NSFetchRequest(entityName: "Phrase")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateCreated", ascending: false)]
+        
+        if let languageCode = limitToLanguageCode {
+           fetchRequest.predicate = NSPredicate(format: "language.languageCode = %@", languageCode)
+        }
+        
         return fetchRequest
     }
     

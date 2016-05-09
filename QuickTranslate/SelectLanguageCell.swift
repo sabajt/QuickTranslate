@@ -13,10 +13,10 @@ class SelectLanguageCell: UITableViewCell {
     @IBOutlet weak var languageLabel: UILabel!
     @IBOutlet weak var checkIcon: UIImageView!
     
-    func configureWithLanguage(language: Language) {
-        if let name = language.name, languageCode = language.languageCode {
+    func configureWithLanguage(language: Language, checkVisible: Bool) {
+        if let name = language.name {
             languageLabel.text = name
-            checkIcon.hidden = !(languageCode == DataManager.sharedInstance.selectedLanguageCode)
+            checkIcon.hidden = !checkVisible
         }
     }
 }
