@@ -128,7 +128,6 @@ class TranslateViewController: UIViewController {
     func translateText(query: String) {
         guard let language = Language.fetchSelectedLanguage(DataManager.sharedInstance.managedObjectContext) else { return }
         guard let languageCode = language.languageCode else { return }
-        guard let languageName = language.name else { return }
         
         resultTextView.text = ""
         activityIndicator.startAnimating()
@@ -139,7 +138,7 @@ class TranslateViewController: UIViewController {
                 print("error: \(errorMessage)")
             } else if let result = translatedText{
                 self.updateResultTextView(result)
-                Phrase.createOrUpdatePhraseInBackground(languageCode, languageName: languageName, sourceText: query, translatedText: result, dateCreated: NSDate(), parentMoc: DataManager.sharedInstance.managedObjectContext)
+                Phrase.createOrUpdatePhraseInBackground(language, sourceText: query, translatedText: result, dateCreated: NSDate(), parentMoc: DataManager.sharedInstance.managedObjectContext)
             }
         }
     }

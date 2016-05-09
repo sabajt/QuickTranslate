@@ -2,7 +2,7 @@
 //  Language+CoreDataProperties.swift
 //  
 //
-//  Created by John Saba on 4/30/16.
+//  Created by John Saba on 5/8/16.
 //
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -14,7 +14,8 @@ import CoreData
 
 extension Language {
 
-    @NSManaged var name: String?
     @NSManaged var languageCode: String?
+    @NSManaged var name: String?
+    @NSManaged var phrases: NSSet?
 
 }

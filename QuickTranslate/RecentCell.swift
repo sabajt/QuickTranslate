@@ -15,7 +15,7 @@ class RecentCell: UITableViewCell {
     @IBOutlet weak var languageLabel: UILabel!
     
     func configureWithPhrase(phrase: Phrase) {
-        if let sourceText = phrase.sourceText, translatedText = phrase.translatedText, languageName = phrase.languageName {
+        if let sourceText = phrase.sourceText, translatedText = phrase.translatedText, languageName = phrase.language?.name {
             sourceLabel.text = sourceText
             translatedLabel.text = translatedText
             languageLabel.text = languageName

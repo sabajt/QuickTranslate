@@ -12,32 +12,35 @@ import CoreData
 
 class Phrase: NSManagedObject {
 
-    class func createPhrase(languageCode: String, languageName: String, sourceText: String, translatedText: String, dateCreated: NSDate, moc: NSManagedObjectContext) -> Phrase? {
+    class func createPhrase(language: Language, sourceText: String, translatedText: String, dateCreated: NSDate, moc: NSManagedObjectContext) -> Phrase? {
         
         guard let entity = NSEntityDescription.entityForName("Phrase", inManagedObjectContext: moc) else {
-            print("Failed to create Phrase object: couldn't find entity 'Phrase'")
+            print("Failed to create Phrase object: couldn't find entity \"Phrase\"")
             return nil
         }
         
         let phrase = NSManagedObject(entity: entity, insertIntoManagedObjectContext: moc) as! Phrase
-        phrase.languageCode = languageCode
-        phrase.languageName = languageName
         phrase.sourceText = sourceText
         phrase.translatedText = translatedText
         phrase.dateCreated = dateCreated
+        
+        // Make sure our language to assign for relation is in the same context as the newly created Phrase.
+        // This is important when we passed in a language from the main context but are creating a phrase in the background.
+        let safeLanguage = Language.fetchLanguage(moc, code: language.languageCode!)
+        phrase.language = safeLanguage
         
         return phrase
     }
     
     // Convenience for checking and updating an identical phrase before adding a new one
-    class func createOrUpdatePhraseInBackground(languageCode: String, languageName: String, sourceText: String, translatedText: String, dateCreated: NSDate, parentMoc: NSManagedObjectContext, completion: ((success: Bool) -> Void)?=nil) {
+    class func createOrUpdatePhraseInBackground(language: Language, sourceText: String, translatedText: String, dateCreated: NSDate, parentMoc: NSManagedObjectContext, completion: ((success: Bool) -> Void)?=nil) {
         
         let privateMoc = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
         privateMoc.parentContext = parentMoc
         privateMoc.performBlock {
             
             let fetchRequest = NSFetchRequest(entityName: "Phrase")
-            fetchRequest.predicate = NSPredicate(format: "languageCode = %@ AND sourceText LIKE[c] %@ AND translatedText LIKE[c] %@", languageCode, sourceText, translatedText)
+            fetchRequest.predicate = NSPredicate(format: "language.languageCode = %@ AND sourceText LIKE[c] %@ AND translatedText LIKE[c] %@", language.languageCode!, sourceText, translatedText)
             
             var results: [Phrase] = []
             do {
@@ -54,7 +57,7 @@ class Phrase: NSManagedObject {
             if let phrase = results.first {
                 phrase.dateCreated = dateCreated
             } else {
-                Phrase.createPhrase(languageCode, languageName: languageName, sourceText: sourceText, translatedText: translatedText, dateCreated: dateCreated, moc: privateMoc)
+                Phrase.createPhrase(language, sourceText: sourceText, translatedText: translatedText, dateCreated: dateCreated, moc: privateMoc)
             }
 
             do {
@@ -79,9 +82,13 @@ class Phrase: NSManagedObject {
         return fetchRequest
     }
     
-    class func fetchPhrasesByMostRecent(moc: NSManagedObjectContext) -> [Phrase] {
+    class func fetchPhrasesByMostRecent(moc: NSManagedObjectContext, languageCode: NSString?=nil) -> [Phrase] {
         let fetchRequest = NSFetchRequest(entityName: "Phrase")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateCreated", ascending: true)]
+        
+        if let code = languageCode {
+            fetchRequest.predicate = NSPredicate(format: "language.languageCode = %@", code)
+        }
         
         var results: [Phrase] = []
         do {

@@ -3,16 +3,16 @@
     <entity name="Language" representedClassName=".Language" syncable="YES">
         <attribute name="languageCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="phrases" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Phrase" inverseName="language" inverseEntity="Phrase" syncable="YES"/>
     </entity>
     <entity name="Phrase" representedClassName=".Phrase" syncable="YES">
         <attribute name="dateCreated" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="languageCode" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="languageName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sourceText" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="translatedText" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="language" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Language" inverseName="phrases" inverseEntity="Language" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Language" positionX="-63" positionY="-18" width="128" height="75"/>
-        <element name="Phrase" positionX="-45" positionY="18" width="128" height="120"/>
+        <element name="Language" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="Phrase" positionX="-45" positionY="18" width="128" height="105"/>
     </elements>
 </model>

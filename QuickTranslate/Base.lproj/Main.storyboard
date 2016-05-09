@@ -342,7 +342,9 @@
                             <outlet property="delegate" destination="jc1-eC-pGV" id="FNC-Xr-kKl"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="A3W-3H-ec6"/>
+                    <navigationItem key="navigationItem" id="A3W-3H-ec6">
+                        <barButtonItem key="rightBarButtonItem" title="Filter Language" id="ppR-aW-vNE"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QJ1-LP-Oxs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

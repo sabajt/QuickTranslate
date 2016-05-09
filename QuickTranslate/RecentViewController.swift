@@ -54,42 +54,11 @@ class RecentViewController: UITableViewController {
 
 extension RecentViewController: NSFetchedResultsControllerDelegate {
     
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
-        tableView.beginUpdates()
-    }
-    
-    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
-        switch type {
-        case .Insert:
-            tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
-        case .Delete:
-            tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
-        case .Move:
-            break
-        case .Update:
-            break
-        }
-    }
-    
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-        switch type {
-        case .Insert:
-            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
-        case .Delete:
-            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
-        case .Update:
-            if let phrase = anObject as? Phrase {
-                let cell = self.tableView.cellForRowAtIndexPath(indexPath!)! as! RecentCell
-                cell.configureWithPhrase(phrase)
-            }
-        case .Move:
-            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
-            tableView.insertRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
-        }
-    }
-    
+    // Just use the "easy" way to update everything:
+    // Changes only happen as fast as a user can translate a new phrase,
+    // and this change happens while the user is viewing another screen
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        tableView.endUpdates()
+        tableView.reloadData()
         tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: false)
     }
 }

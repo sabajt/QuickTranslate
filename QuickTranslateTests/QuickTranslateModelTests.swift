@@ -62,9 +62,45 @@ class QuickTranslateModelTests: XCTestCase {
     // MARK: - Language
     
     func testCreateLanguage() {
-        let language = Language.createLanguage(singleLanguageJson, moc: moc)
-        XCTAssert(language?.languageCode == singleLanguageJson["language"], "Failed to create Language entity with correct \"language\" field.")
-        XCTAssert(language?.name == singleLanguageJson["name"], "Failed to create Language entity with correct \"name\" field.")
+        // Test basic langauge creation
+        guard let language = Language.createLanguage(singleLanguageJson, moc: moc) else {
+            XCTFail("Failed to create a Language")
+            return
+        }
+        XCTAssert(language.languageCode == singleLanguageJson["language"], "Failed to create Language entity with correct \"language\" field.")
+        XCTAssert(language.name == singleLanguageJson["name"], "Failed to create Language entity with correct \"name\" field.")
+        
+        // Test adding relationships
+        for i in 1...5 {
+            guard let _ = Phrase.createPhrase(language, sourceText: String(i), translatedText: String(i), dateCreated: NSDate(), moc: moc) else {
+                XCTFail("Failed to create Phrase in create langauge test")
+                return
+            }
+        }
+        
+        saveInMemoryMoc()
+        XCTAssert(language.phrases?.count == 5, "Failed to set up Language -> Phrase relationship correctly")
+        
+        // Test deleting rule
+        guard let language2 = Language.createLanguage(["language": "2", "name" : "language 2"], moc: moc) else {
+            XCTFail("Failed to create a Language")
+            return
+        }
+        for i in 1...2 {
+            guard let _ = Phrase.createPhrase(language2, sourceText: String(i), translatedText: String(i), dateCreated: NSDate(), moc: moc) else {
+                XCTFail("Failed to create Phrase in create langauge test")
+                return
+            }
+        }
+    
+        let deletedLanguageCode = language.languageCode!
+        moc.deleteObject(language)
+        saveInMemoryMoc()
+        let deletedLanguage = Language.fetchLanguage(moc, code: deletedLanguageCode)
+        XCTAssert(deletedLanguage == nil, "Failed to delete language")
+        
+        let deletedPhrases = Phrase.fetchPhrasesByMostRecent(moc, languageCode: deletedLanguageCode)
+        XCTAssert(deletedPhrases.count == 0, "Failed to delete phrases by deleting parent language")
     }
     
     func testFetchLanguagesAscending() {
@@ -72,7 +108,7 @@ class QuickTranslateModelTests: XCTestCase {
             Language.createLanguage(json, moc: moc)
         }
         saveInMemoryMoc()
-        
+    
         let results = Language.fetchLanguagesAscending(moc)
         XCTAssert(results.count == 3, "Failed to fetch 3 languages")
         XCTAssert(results[0].name == "language a", "Failed to fetch languages in ascending order")
@@ -170,20 +206,34 @@ class QuickTranslateModelTests: XCTestCase {
     // MARK: - Phrase
     
     func testCreatePhrase() {
+        guard let language = Language.createLanguage(singleLanguageJson, moc: moc) else {
+            XCTFail()
+            return
+        }
+        
         let now = NSDate()
-        let phrase = Phrase.createPhrase("ct", languageName: "Cat", sourceText: "Meow", translatedText: "Gimme dinner or I'll kill you in your sleep", dateCreated: now, moc: moc)
-        XCTAssert(phrase?.languageCode == "ct", "Failed to create Phrase entity with correct \"languageCode\" field")
-        XCTAssert(phrase?.languageName == "Cat", "Failed to create Phrase entity with correct \"languageName\" field")
-        XCTAssert(phrase?.sourceText == "Meow", "Failed to create Phrase entity with correct \"sourceText\" field")
-        XCTAssert(phrase?.translatedText == "Gimme dinner or I'll kill you in your sleep", "Failed to create Phrase entity with correct \"translatedText\" field")
-        XCTAssert((phrase?.dateCreated?.isEqualToDate(now))!, "Failed to create Phrase entity with correct \"dateCreated\" field")
+        guard let phrase = Phrase.createPhrase(language, sourceText: "Meow", translatedText: "Gimme dinner or I'll kill you in your sleep", dateCreated: now, moc: moc) else {
+            XCTFail("Failed to create phrase")
+            return
+        }
+        
+        XCTAssert(phrase.language!.languageCode == language.languageCode, "Failed to create Phrase entity with correct language relation")
+        XCTAssert(phrase.language!.name == language.name, "Failed to create Phrase entity with correct language relation")
+        XCTAssert(phrase.sourceText == "Meow", "Failed to create Phrase entity with correct \"sourceText\" field")
+        XCTAssert(phrase.translatedText == "Gimme dinner or I'll kill you in your sleep", "Failed to create Phrase entity with correct \"translatedText\" field")
+        XCTAssert((phrase.dateCreated?.isEqualToDate(now))!, "Failed to create Phrase entity with correct \"dateCreated\" field")
     }
 
     func testCreateOrUpdatePhraseInBackground() {
+        guard let language = Language.createLanguage(singleLanguageJson, moc: moc) else {
+            XCTFail()
+            return
+        }
+
         // Test syncing a new phrase with no existing phrases in local store
         let then = NSDate()
         var expectation = expectationWithDescription("Sync phrase completion block")
-        Phrase.createOrUpdatePhraseInBackground("es", languageName: "Spanish", sourceText: "Hello", translatedText: "Hola", dateCreated: then, parentMoc: moc) { (success) in
+        Phrase.createOrUpdatePhraseInBackground(language, sourceText: "Hello", translatedText: "Hola", dateCreated: then, parentMoc: moc) { (success) in
             XCTAssert(success, "Expected phrase syncing success")
             expectation.fulfill()
         }
@@ -199,7 +249,7 @@ class QuickTranslateModelTests: XCTestCase {
         // Test syncing the a phrase that matches an existing phrase in local store
         let now = NSDate()
         expectation = expectationWithDescription("Sync phrase completion block")
-        Phrase.createOrUpdatePhraseInBackground("es", languageName: "Spanish", sourceText: "Hello", translatedText: "Hola", dateCreated: now, parentMoc: moc) { (success) in
+        Phrase.createOrUpdatePhraseInBackground(language, sourceText: "Hello", translatedText: "Hola", dateCreated: now, parentMoc: moc) { (success) in
             XCTAssert(success, "Expected phrase syncing success")
             expectation.fulfill()
         }
@@ -215,12 +265,17 @@ class QuickTranslateModelTests: XCTestCase {
     }
     
     func testFetchPhrasesByMostRecent() {
+        guard let language = Language.createLanguage(singleLanguageJson, moc: moc) else {
+            XCTFail()
+            return
+        }
+
         // Create some phrases with an ascending range of dates
         for i in 1...5 {
             let date = NSDate().dateByAddingTimeInterval(Double(i))
             
             // Make the source text just be an ascending number so we have a way to check the date fetch worked
-            Phrase.createPhrase("arbitrary", languageName: "arbitrary", sourceText: String(i), translatedText: "arbitrary:", dateCreated: date, moc: moc)
+            Phrase.createPhrase(language, sourceText: String(i), translatedText: "arbitrary:", dateCreated: date, moc: moc)
         }
         saveInMemoryMoc()
         

@@ -15,9 +15,8 @@ import CoreData
 extension Phrase {
 
     @NSManaged var dateCreated: NSDate?
-    @NSManaged var languageCode: String?
     @NSManaged var sourceText: String?
     @NSManaged var translatedText: String?
-    @NSManaged var languageName: String?
+    @NSManaged var language: Language?
 
 }
